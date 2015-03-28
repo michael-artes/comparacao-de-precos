@@ -9,7 +9,7 @@ public class Teste {
 	
 	public String getMensagem(){
 		
-		teste = "comit no master 2";
+		teste = "Comitando no trunk";
 		
 		return "Deu Certo de novo" + teste;
 	}
