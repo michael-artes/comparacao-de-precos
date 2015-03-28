@@ -6,7 +6,7 @@ import javax.inject.Named;
 public class Teste {
 	
 	public String getMensagem(){
-		return "Deu Certo";
+		return "Deu Certo de novo";
 	}
 
 }
