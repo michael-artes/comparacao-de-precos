@@ -9,7 +9,7 @@ public class Teste {
 	
 	public String getMensagem(){
 		
-		teste = "teste";
+		teste = "teste 12345";
 		
 		return "Deu Certo de novo" + teste;
 	}
