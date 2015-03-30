@@ -31,8 +31,8 @@ public class PersistenceTest {
 		EntityManager em = factory.createEntityManager();
 		
 		Usuario usuario = new Usuario();
-		usuario.setNome("Michael2");
-		usuario.setLogin("mmoreira3");
+		usuario.setNome("Michael - 4");
+		usuario.setLogin("mmoreira4");
 		usuario.setSenha("123456");
 		usuario.setPerfil(EnumPerfil.findById(2));
 		usuario.setDataCadastro(new Date());
@@ -44,7 +44,7 @@ public class PersistenceTest {
 		
 		em.close();
 		
-		Assert.assertFalse(true);//Se chegou aqui é por que conectou corretamente
+		Assert.assertTrue(true);//Se chegou aqui é por que conectou corretamente
 	}
 	
 	@Test
@@ -68,7 +68,7 @@ public class PersistenceTest {
 		
 		em.close();
 		
-		Assert.assertFalse(true);//Se chegou aqui é por que conectou corretamente
+		Assert.assertTrue(true);//Se chegou aqui é por que conectou corretamente
 	}
 
 }

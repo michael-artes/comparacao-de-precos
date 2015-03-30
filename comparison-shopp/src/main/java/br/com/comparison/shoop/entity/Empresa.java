@@ -201,11 +201,11 @@ public class Empresa {
 
 	@Override
 	public String toString() {
-		return "empresa [id=" + id + ", usuario=" + usuario + ", cnpj=" + cnpj
+		return "Empresa [id=" + id + ", usuario=" + usuario + ", cnpj=" + cnpj
 				+ ", nomeFantasia=" + nomeFantasia + ", razaoSocial="
 				+ razaoSocial + ", descricao=" + descricao + ", ativo=" + ativo
 				+ ", dataCadastro=" + dataCadastro + ", dataAlteracao="
 				+ dataAlteracao + "]";
 	}
-	
+
 }

@@ -1,0 +1,3 @@
+##################### ENTITYS
+
+---- > Sempre que criar uma variavel nova nos entitys gerar um novo hascode, toString e equals

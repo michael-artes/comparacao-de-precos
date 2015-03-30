@@ -6,6 +6,10 @@
 		
 		<class>br.com.comparison.shoop.entity.Usuario</class>
 		<class>br.com.comparison.shoop.entity.Empresa</class>
+		<class>br.com.comparison.shoop.entity.Anuncio</class>
+		<class>br.com.comparison.shoop.entity.PalavrasChave</class>
+		<class>br.com.comparison.shoop.entity.Orcamento</class>
+		<class>br.com.comparison.shoop.entity.ItemOrcamento</class>
 		
 		<properties>
 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
