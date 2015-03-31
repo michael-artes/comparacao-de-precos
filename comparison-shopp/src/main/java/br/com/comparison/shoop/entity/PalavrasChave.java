@@ -12,12 +12,12 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="palavras_chaves", schema="web")
+@Table(name="palavras_chave", schema="web")
 public class PalavrasChave {
 	
 	@Id
 	@SequenceGenerator(name="generator_palavras_chave", sequenceName="web.palavras_chave_id_seq", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.AUTO, generator="generator_anuncio")
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="generator_palavras_chave")
 	@Column(name="id", unique=true, nullable=false)
 	private Integer id;
 	
