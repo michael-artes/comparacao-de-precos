@@ -30,3 +30,16 @@ ALTER TABLE web.empresa
 ALTER TABLE web.usuario
   ADD CONSTRAINT uk_usuario_login UNIQUE (login);
   
+  
+  
+ALTER TABLE web.item_orcamento
+  ADD COLUMN nome character varying(50) NOT NULL;
+ALTER TABLE web.item_orcamento
+  ADD COLUMN data_cadastro timestamp without time zone NOT NULL;
+ALTER TABLE web.item_orcamento
+  ADD COLUMN imagem bytea;
+COMMENT ON COLUMN web.item_orcamento.nome IS 'Define o nome';
+COMMENT ON COLUMN web.item_orcamento.data_cadastro IS 'Data do cadastro';
+COMMENT ON COLUMN web.item_orcamento.imagem IS 'bytes da imagens cadastrada';
+  
+  

@@ -1,9 +1,7 @@
 package br.com.comparison.shoop.persistenceTest;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,11 +11,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.com.comparison.shoop.entity.Anuncio;
-import br.com.comparison.shoop.entity.Empresa;
+import br.com.comparison.shoop.entity.ItemOrcamento;
 import br.com.comparison.shoop.entity.Orcamento;
-import br.com.comparison.shoop.entity.PalavrasChave;
 import br.com.comparison.shoop.entity.Usuario;
-import br.com.comparison.shoop.enuns.EnumPerfil;
+import br.com.comparison.shoop.enuns.EnumStatusOrcamento;
 
 public class PersistenceTest {
 	
@@ -163,9 +160,33 @@ public class PersistenceTest {
 	
 	@Test
 	public void testPersistenceOrcamento(){
+		EntityManager em = getEntityManager();
 		
-		Orcamento orcamento = new Orcamento();
+		Anuncio a = em.getReference(Anuncio.class, 7);//Pegas as informações do anuncio
 		
+		Orcamento o = new Orcamento();
+		o.setDataCadastro(new Date());
+		o.setUsuario(em.getReference(Usuario.class, 4));
+		o.setStatusOrcamento(EnumStatusOrcamento.findById(0));
+		
+		em.getTransaction().begin();
+		em.persist(o);
+		em.getTransaction().commit();
+		
+		ItemOrcamento itemOrc = new ItemOrcamento();
+		itemOrc.setValor(a.getValor());
+		itemOrc.setDataCadastro(new Date());
+		itemOrc.setDescricao(a.getDescricao());
+		itemOrc.setNome(a.getNome());
+		itemOrc.setOrcamento(o);
+		
+		em.getTransaction().begin();
+		em.persist(itemOrc);
+		em.getTransaction().commit();
+		
+		em.close();
+		
+		Assert.assertTrue(true);//Se chegou aqui é por que conectou corretamente
 	}
 
 }
