@@ -96,8 +96,6 @@ public class Orcamento {
 				+ ((dataCadastro == null) ? 0 : dataCadastro.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
-				+ ((itemOrcamentos == null) ? 0 : itemOrcamentos.hashCode());
-		result = prime * result
 				+ ((statusOrcamento == null) ? 0 : statusOrcamento.hashCode());
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		return result;
@@ -140,8 +138,7 @@ public class Orcamento {
 	@Override
 	public String toString() {
 		return "Orcamento [id=" + id + ", usuario=" + usuario
-				+ ", statusOrcamento=" + statusOrcamento + ", dataCadastro="
-				+ dataCadastro + ", itemOrcamentos=" + itemOrcamentos + "]";
+				+ ", statusOrcamento=" + statusOrcamento + ", dataCadastro=" + dataCadastro + "]";
 	}
 	
 }

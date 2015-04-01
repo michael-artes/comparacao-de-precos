@@ -162,29 +162,39 @@ public class PersistenceTest {
 	public void testPersistenceOrcamento(){
 		EntityManager em = getEntityManager();
 		
-		Anuncio a = em.getReference(Anuncio.class, 7);//Pegas as informações do anuncio
+		Orcamento o = em.find(Orcamento.class, 10);
 		
-		Orcamento o = new Orcamento();
+		Set<ItemOrcamento> itemOrcamentos = o.getItemOrcamentos();
+		
+		for (ItemOrcamento itemOrcamento : itemOrcamentos) {
+			System.out.println(itemOrcamento.toString());
+		}
+		
+		System.out.println(o.getId());
+		
+//		Anuncio a = em.getReference(Anuncio.class, 7);//Pegas as informações do anuncio
+		
+		/*Orcamento o = new Orcamento();
 		o.setDataCadastro(new Date());
 		o.setUsuario(em.getReference(Usuario.class, 4));
-		o.setStatusOrcamento(EnumStatusOrcamento.findById(0));
+		o.setStatusOrcamento(EnumStatusOrcamento.findById(0));*/
 		
-		em.getTransaction().begin();
+		/*em.getTransaction().begin();
 		em.persist(o);
-		em.getTransaction().commit();
+		em.getTransaction().commit();*/
 		
-		ItemOrcamento itemOrc = new ItemOrcamento();
-		itemOrc.setValor(a.getValor());
-		itemOrc.setDataCadastro(new Date());
-		itemOrc.setDescricao(a.getDescricao());
-		itemOrc.setNome(a.getNome());
-		itemOrc.setOrcamento(o);
-		
-		em.getTransaction().begin();
-		em.persist(itemOrc);
-		em.getTransaction().commit();
-		
-		em.close();
+//		ItemOrcamento itemOrc = new ItemOrcamento();
+//		itemOrc.setValor(a.getValor());
+//		itemOrc.setDataCadastro(new Date());
+//		itemOrc.setDescricao(a.getDescricao());
+//		itemOrc.setNome(a.getNome());
+//		itemOrc.setOrcamento(o);
+//		
+//		em.getTransaction().begin();
+//		em.persist(itemOrc);
+//		em.getTransaction().commit();
+//		
+//		em.close();
 		
 		Assert.assertTrue(true);//Se chegou aqui é por que conectou corretamente
 	}
