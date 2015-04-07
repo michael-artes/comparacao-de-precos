@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+ 
+   <h:head>
+      <title>Hello JSF!</title>
+		<h:outputStylesheet library="webjars" name="bootstrap/3.3.4/css/bootstrap.min.css" />
+		<h:outputStylesheet library="fonts" name="fontawesome/font-awesome.css" />
+		<h:outputStylesheet library="css" name="index.css" />
+   </h:head>
+   <h:body>
+   
+   <p:messages/>
+   
+	<div class="container">
+	
+		<h:form styleClass="form-signin">
+			
+			<p:outputLabel styleClass="form-signin-heading fa" > <i class="fa fa-user"></i> #{i18n.logarSistema} </p:outputLabel>
+			
+			<p:inputText styleClass="form-control fa" required="true" placeholder="#{i18n.loginInfo}" value="#{loginMB.login}" id="inputLogin"/>
+			<p:password styleClass="form-control fa" required="true" placeholder="#{i18n.senhaLoginInfo}" value="#{loginMB.senha}" id="inputSenha"/>
+			
+			<div class="checkbox">
+				<p:selectBooleanCheckbox value="#{loginMB.lembrarMe}"/>
+				<p:outputLabel value="#{i18n.lembrarME}"/>
+			</div>
+			
+			<h:commandButton styleClass="btn btn-lg btn-primary btn-block fa" value="#{i18n.entrarSistema}" action="#{loginMB.entrar}"/>
+			
+		</h:form>
+	
+	</div> <!-- Fim div container -->
+	    
+   </h:body>
+</html>

@@ -1,6 +1,7 @@
 package br.com.comparison.shoop.persistenceTest;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -10,6 +11,10 @@ import javax.persistence.Persistence;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.com.comparison.shoop.dao.GenericDAO;
+import br.com.comparison.shoop.dao.UsuarioDAO;
+import br.com.comparison.shoop.dao.impl.GenericDAOImpl;
+import br.com.comparison.shoop.dao.impl.UsuarioDAOImpl;
 import br.com.comparison.shoop.entity.Anuncio;
 import br.com.comparison.shoop.entity.ItemOrcamento;
 import br.com.comparison.shoop.entity.Orcamento;
@@ -198,5 +203,21 @@ public class PersistenceTest {
 		
 		Assert.assertTrue(true);//Se chegou aqui é por que conectou corretamente
 	}
+	
+	
+	
+	@Test
+	public void testListUsuarios(){
+		EntityManager em = getEntityManager();
+		UsuarioDAO usuarioDAO = new UsuarioDAOImpl(em);
+
+		List<Usuario> list = usuarioDAO.list();
+		for (Usuario usuario : list) {
+			System.out.println(usuario.toString());
+		}
+		
+	}
+	
+	
 
 }

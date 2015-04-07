@@ -3,7 +3,7 @@
   <display-name>comparison-shopp</display-name>
   
   	<welcome-file-list>
-  		<welcome-file>pags/index.xhtml</welcome-file>
+  		<welcome-file>pags/login.xhtml</welcome-file>
   	</welcome-file-list>
   	
 	<listener>
