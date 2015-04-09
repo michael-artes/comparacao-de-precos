@@ -40,7 +40,6 @@ public class LoginMB {
 	
 
 	public String entrar(){
-		service.findUser(new Usuario());
 		return "home";
 	}
 	
