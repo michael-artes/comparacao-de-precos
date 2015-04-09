@@ -3,6 +3,7 @@ package br.com.comparison.shoop.dao.impl;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.hibernate.Criteria;
@@ -12,13 +13,13 @@ import br.com.comparison.shoop.dao.GenericDAO;
 
 public class GenericDAOImpl<T> implements GenericDAO<T>{
 	
+	@Inject
 	private EntityManager entityManager;
 	private Class<T> klass;
 	
 	//Alterar pois sera usado a injecao de dependencia
 	@SuppressWarnings("unchecked")
-	public GenericDAOImpl(EntityManager entityManager) {
-		this.entityManager = entityManager;
+	public GenericDAOImpl() {
 		ParameterizedType type = (ParameterizedType) this.getClass().getGenericSuperclass();
 		this.klass = (Class<T>) type.getActualTypeArguments()[0];
 	}

@@ -208,13 +208,13 @@ public class PersistenceTest {
 	
 	@Test
 	public void testListUsuarios(){
-		EntityManager em = getEntityManager();
+		/*EntityManager em = getEntityManager();
 		UsuarioDAO usuarioDAO = new UsuarioDAOImpl(em);
 
 		List<Usuario> list = usuarioDAO.list();
 		for (Usuario usuario : list) {
 			System.out.println(usuario.toString());
-		}
+		}*/
 		
 	}
 	
