@@ -1,5 +1,6 @@
 package br.com.comparison.shoop.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,8 +18,14 @@ import br.com.comparison.shoop.enuns.EnumPerfil;
 
 @Entity
 @Table(name="usuario", schema="web")
-public class Usuario {
+public class Usuario implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+
 	@Id
 	@SequenceGenerator(name="generator_usuario", sequenceName="web.usuario_id_seq", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.AUTO, generator="generator_usuario")

@@ -3,7 +3,7 @@
   <display-name>comparison-shopp</display-name>
   
   	<welcome-file-list>
-  		<welcome-file>pags/login.xhtml</welcome-file>
+  		<welcome-file>login.xhtml</welcome-file>
   	</welcome-file-list>
   	
 	<listener>
@@ -20,10 +20,6 @@
 	   <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 	   <load-on-startup>1</load-on-startup>
 	</servlet>
-	<servlet-mapping>
-	   <servlet-name>Faces Servlet</servlet-name>
-	   <url-pattern>*.jsf</url-pattern>
-	</servlet-mapping>
 	<servlet-mapping>
 	   <servlet-name>Faces Servlet</servlet-name>
 	   <url-pattern>*.xhtml</url-pattern>

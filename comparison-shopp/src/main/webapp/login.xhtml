@@ -18,6 +18,8 @@
 	<div class="container">
 	
 		<h:form styleClass="form-signin">
+		
+			<p:growl id="growl" showDetail="true" sticky="true" />  
 			
 			<p:outputLabel styleClass="form-signin-heading fa" > <i class="fa fa-user"></i> #{i18n.logarSistema} </p:outputLabel>
 			
@@ -29,7 +31,7 @@
 				<p:outputLabel value="#{i18n.lembrarME}"/>
 			</div>
 			
-			<h:commandButton styleClass="btn btn-lg btn-primary btn-block fa" value="#{i18n.entrarSistema}" action="#{loginMB.entrar}"/>
+			<p:commandButton styleClass="btn btn-lg btn-primary btn-block fa" action="#{loginMB.logar}" value="#{i18n.entrarSistema}" update="growl"/>
 			
 		</h:form>
 	
