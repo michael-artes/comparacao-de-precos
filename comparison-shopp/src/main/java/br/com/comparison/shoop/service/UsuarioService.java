@@ -6,4 +6,6 @@ public interface UsuarioService {
 	
 	public Usuario findUser(Usuario usuario);
 
+	public void salvar(Usuario usuario);
+
 }

@@ -12,8 +12,9 @@
    
 	<div class="container">
 			
-			<h:outputText value="#{i18n.bemVindo}"/>
-			<h:outputText value="#{usuarioMB.nome}"/>
+			<h:outputFormat value="#{i18n.bemVindo}">
+				<f:param value="#{usuarioMB.nome}"/>
+			</h:outputFormat>
 			
 			<br/><br/>
 			

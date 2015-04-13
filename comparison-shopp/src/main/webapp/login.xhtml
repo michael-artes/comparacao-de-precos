@@ -6,34 +6,94 @@
       xmlns:p="http://primefaces.org/ui">
  
    <h:head>
-      <title>Hello JSF!</title>
+      <title>Sign In!</title>
 		<h:outputStylesheet library="webjars" name="bootstrap/3.3.4/css/bootstrap.min.css" />
 		<h:outputStylesheet library="fonts" name="fontawesome/font-awesome.css" />
 		<h:outputStylesheet library="css" name="index.css" />
+		<h:outputScript library="javascript" name="login/login.js"/>
    </h:head>
    <h:body>
    
-   <p:messages/>
+  	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+		<p:graphicImage name="/imagens/ajaxloadingbar.gif" />
+	</p:dialog>
    
 	<div class="container">
 	
-		<h:form styleClass="form-signin">
+		<h:form styleClass="form-signin" id="formLogin" prependId="false">
 		
-			<p:growl id="growl" showDetail="true" sticky="true" />  
+			<p:growl id="grow1" showDetail="true" sticky="true" />  
 			
 			<p:outputLabel styleClass="form-signin-heading fa" > <i class="fa fa-user"></i> #{i18n.logarSistema} </p:outputLabel>
 			
+			<label for="inputLogin" class="sr-only">#{i18n.loginInfo}</label>
 			<p:inputText styleClass="form-control fa" required="true" placeholder="#{i18n.loginInfo}" value="#{loginMB.login}" id="inputLogin"/>
+			
+			<label for="inputSenha" class="sr-only">#{i18n.senhaLoginInfo}</label>
 			<p:password styleClass="form-control fa" required="true" placeholder="#{i18n.senhaLoginInfo}" value="#{loginMB.senha}" id="inputSenha"/>
 			
 			<div class="checkbox">
-				<p:selectBooleanCheckbox value="#{loginMB.lembrarMe}"/>
-				<p:outputLabel value="#{i18n.lembrarME}"/>
+				<label>
+					<h:selectBooleanCheckbox value="#{loginMB.lembrarMe}"/>	<h:outputText value="#{i18n.lembrarME}" styleClass="fa"/>
+				</label>
 			</div>
 			
-			<p:commandButton styleClass="btn btn-lg btn-primary btn-block fa" action="#{loginMB.logar}" value="#{i18n.entrarSistema}" update="growl"/>
+			<p:link href="#" id="cadastroNovoUsuario" value="#{i18n.usuarioCadastrar}" styleClass="fa"/>
+			
+			<br/> <br/>
+			
+			<p:commandButton styleClass="btn btn-lg btn-primary btn-block fa" action="#{loginMB.logar}" value="#{i18n.entrarSistema}" update="grow1"/>
 			
 		</h:form>
+		
+		
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-4"></div>
+				<div class="col-lg-4">
+					<h:form id="formCadastroUser" style="display: none;" prependId="false">
+					
+							<p:growl id="grow2" showDetail="true" sticky="true" />
+					
+                            <div class="form-group">
+                                <label for="inputLoginUser">#{i18n.userLogin}</label>
+                                <p:inputText styleClass="form-control" placeholder="#{i18n.userLogin}" value="#{usuarioMB.usuario.login}" required="true" id="inputLoginUser"/>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="inputSenhaUser">#{i18n.userSenha}</label>
+                                <p:password styleClass="form-control" placeholder="#{i18n.userSenha}" value="#{usuarioMB.usuario.senha}" required="true" id="inputSenhaUser" converter="criptMD5Converter">
+                                	<!-- <f:validateRegex pattern="[a-z0-9]{3,15}"/>  DEPOIS VER UM REGEX VALIDO-->
+                                </p:password>
+                            </div>	
+                            
+                            <div class="form-group">
+                                <label for="inputLoginNome">#{i18n.userNome}</label>
+                                <p:inputText styleClass="form-control" placeholder="#{i18n.userNome}" value="#{usuarioMB.usuario.nome}" required="true" id="inputLoginNome"/>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="inputPerfilUser">#{i18n.userPerfil}</label>
+                                <h:selectOneMenu value="#{usuarioMB.usuario.perfil}" id="inputPerfilUser" styleClass="form-control" converter="enumConverter" required="true">
+                                	<f:selectItem itemLabel="---Selecione---" noSelectionOption="true"/>
+                                	<f:selectItems value="#{usuarioMB.perfils}"/>
+                                </h:selectOneMenu>
+                            </div>
+                            
+                            <div class="form-group">
+                            	<p:link href="#" id="cancelarCadastro" value="#{i18n.cancelarCadastro}" styleClass="fa"/>
+                            	<br/><br/>
+                            	<p:commandButton value="#{i18n.userSalvar}" actionListener="#{usuarioMB.salvarUser}" styleClass="btn btn-lg btn-primary btn-block fa" update="grow2"/>
+                            </div>
+                            						
+					</h:form>
+				</div>
+				<div class="col-lg-4"></div>
+			</div>
+		</div>	
+					
 	
 	</div> <!-- Fim div container -->
 	    

@@ -1,14 +1,23 @@
 package br.com.comparison.shoop.managedBeans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.comparison.shoop.entity.Usuario;
+import br.com.comparison.shoop.enuns.EnumPerfil;
+import br.com.comparison.shoop.service.UsuarioService;
 
-//@Login
 @Named
 @SessionScoped
 public class UsuarioMB implements Serializable{
@@ -20,12 +29,25 @@ public class UsuarioMB implements Serializable{
 
 	//Atributo para realizar a persistencia
 	private Usuario usuario;
+	private List<EnumPerfil> perfis = new ArrayList<EnumPerfil>(0);
 	
 	//Atributos para identificar o usuario da sessao
 	private String nome;
 	private String login;
 	private boolean logado;
 	private Date dataAcesso;
+	
+	@PostConstruct
+	public void init(){
+		
+		if (usuario == null) {
+			usuario = new Usuario();
+		}
+	}
+	
+	
+	@Inject
+	private UsuarioService usuarioService;
 	
 	public Usuario getUsuario() {
 		return usuario;
@@ -58,4 +80,35 @@ public class UsuarioMB implements Serializable{
 		this.logado = logado;
 	}
 	
+	
+	
+	
+	public List<EnumPerfil> getPerfils() {
+		
+		if (perfis.isEmpty()) {
+			for (EnumPerfil e : EnumPerfil.values()) {
+				if(e != EnumPerfil.ADMINISTRADOR){
+					perfis.add(e);
+				}
+			}
+		} 
+		
+		return perfis;
+	}
+	
+	
+	public void salvarUser(ActionEvent event){
+		FacesContext context = FacesContext.getCurrentInstance();
+		ResourceBundle i18n = context.getApplication().getResourceBundle(context, "i18n");
+		
+		usuario.setDataCadastro(new Date());
+		usuario.setAtivo(true);
+		usuarioService.salvar(usuario);
+		
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, i18n.getString("sucess"), i18n.getString("userSalvo")));
+		
+		usuario = new Usuario();
+		
+		
+	}
 }

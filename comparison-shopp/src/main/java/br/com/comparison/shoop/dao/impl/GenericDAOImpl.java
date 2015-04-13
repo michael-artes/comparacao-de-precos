@@ -1,5 +1,6 @@
 package br.com.comparison.shoop.dao.impl;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
@@ -11,7 +12,13 @@ import org.hibernate.Session;
 
 import br.com.comparison.shoop.dao.GenericDAO;
 
-public class GenericDAOImpl<T> implements GenericDAO<T>{
+public class GenericDAOImpl<T> implements GenericDAO<T>, Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	
 	@Inject
 	private EntityManager entityManager;
