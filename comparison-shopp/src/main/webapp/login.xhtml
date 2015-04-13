@@ -32,7 +32,7 @@
 			<p:inputText styleClass="form-control fa" required="true" placeholder="#{i18n.loginInfo}" value="#{loginMB.login}" id="inputLogin"/>
 			
 			<label for="inputSenha" class="sr-only">#{i18n.senhaLoginInfo}</label>
-			<p:password styleClass="form-control fa" required="true" placeholder="#{i18n.senhaLoginInfo}" value="#{loginMB.senha}" id="inputSenha"/>
+			<p:password styleClass="form-control fa" required="true" placeholder="#{i18n.senhaLoginInfo}" value="#{loginMB.senha}" id="inputSenha" converter="criptMD5Converter"/>
 			
 			<div class="checkbox">
 				<label>

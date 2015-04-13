@@ -11,6 +11,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.comparison.shoop.service.UsuarioService;
+
 @Named
 @RequestScoped
 public class LoginMB implements Serializable{
@@ -26,6 +28,9 @@ public class LoginMB implements Serializable{
 	
 	@Inject
 	private UsuarioMB usuarioMB;
+	
+	@Inject
+	private UsuarioService usuarioService;
 
 	public boolean isLembrarMe() {
 		return lembrarMe;
@@ -47,13 +52,11 @@ public class LoginMB implements Serializable{
 	}
 	
 	
-	
-	
 	public void logar() throws IOException{
 		FacesContext context = FacesContext.getCurrentInstance();
 		ResourceBundle i18n = context.getApplication().getResourceBundle(context, "i18n");
 		
-		if ("admin".equals(login) && "123456".equals(senha)) {
+		if (usuarioService.isExisteUsuario(login, senha)) {
 			usuarioMB.setNome(getLogin());
 			usuarioMB.setLogado(true);
 			usuarioMB.setDataAcesso(new Date());

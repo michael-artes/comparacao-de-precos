@@ -37,5 +37,12 @@ public class UsuarioServiceImpl implements UsuarioService, Serializable{
 	public void salvar(Usuario usuario) {
 		usuarioDAO.save(usuario);
 	}
+	
+	
+
+	@Override
+	public boolean isExisteUsuario(String login, String senha) {
+		return usuarioDAO.isExisteUsuario(login, senha);
+	}
 
 }
