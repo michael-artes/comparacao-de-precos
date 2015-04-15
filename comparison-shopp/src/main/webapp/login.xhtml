@@ -55,38 +55,51 @@
 				<div class="col-lg-4">
 					<h:form id="formCadastroUser" style="display: none;" prependId="false">
 					
-							<p:growl id="grow2" showDetail="true" sticky="true" />
+						<p:panel id="panel" header="Form" style="margin-top: 10px;">
+								<p:growl id="grow2" showDetail="true" sticky="true" />
+						
+	                            <div class="form-group">
+	                                <label for="inputLoginUser">#{i18n.userLogin}</label>
+	                                <p:inputText styleClass="form-control" placeholder="#{i18n.userLogin}" value="#{usuarioMB.usuario.login}" required="true" id="inputLoginUser"/>
+	                            </div>
+	                            
+	                            <div class="form-group">
+	                                <label for="inputSenhaUser">#{i18n.userSenha}</label>
+	                                <p:password styleClass="form-control" placeholder="#{i18n.userSenha}" value="#{usuarioMB.usuario.senha}" feedback="true" 
+	                                			required="true" id="inputSenhaUser" converter="criptMD5Converter" weakLabel="Fraco" goodLabel="Bom" strongLabel="Muito Bom">
+	                                	<!-- <f:validateRegex pattern="[a-z0-9]{3,15}"/>  DEPOIS VER UM REGEX VALIDO PARA VALIDAR A SENHA-->
+	                                </p:password>
+	                            </div>	
+	                            
+	                            <div class="form-group">
+	                                <label for="inputNomeUser">#{i18n.userNome}</label>
+	                                <p:inputText styleClass="form-control" placeholder="#{i18n.userNome}" value="#{usuarioMB.usuario.nome}" required="true" id="inputNomeUser"/>
+	                            </div>
+	                            
+	                            <div class="form-group">
+	                                <label for="inputEmailUser">#{i18n.userEmail}</label>
+	                                <p:inputText styleClass="form-control" placeholder="#{i18n.userEmail}" value="#{usuarioMB.usuario.email}" required="true" id="inputEmailUser">
+	                                	<!-- <f:validateRegex pattern="[a-z0-9]{3,15}"/>  DEPOIS VER UM REGEX VALIDO PARA VALIDAR E-MAIL -->
+	                                </p:inputText>
+	                            </div>	
+	                            
+	                            <div class="form-group">
+	                                <label for="inputPerfilUser">#{i18n.userPerfil}</label>
+	                                <h:selectOneMenu value="#{usuarioMB.usuario.perfil}" id="inputPerfilUser" styleClass="form-control" converter="enumConverter" required="true">
+	                                	<f:selectItem itemLabel="---Selecione---" noSelectionOption="true"/>
+	                                	<f:selectItems value="#{usuarioMB.perfils}"/>
+	                                </h:selectOneMenu>
+	                            </div>
+	                            
+	                            <div class="form-group">
+	                            	<f:verbatim> <a href="#" class="fa" id="cancelarCadastro" style="color: #23527c" onclick="telaLogin();">#{i18n.cancelarCadastro}</a> </f:verbatim>
+	                            	<br/><br/>
+	                            	<h:commandButton value="#{i18n.userSalvar}" action="#{usuarioMB.salvarUser}" styleClass="btn btn-lg btn-primary btn-block fa">
+	                            		<f:ajax render="panel" execute="formCadastroUser"/>
+	                            	</h:commandButton>
+	                            </div>
+						</p:panel>
 					
-                            <div class="form-group">
-                                <label for="inputLoginUser">#{i18n.userLogin}</label>
-                                <p:inputText styleClass="form-control" placeholder="#{i18n.userLogin}" value="#{usuarioMB.usuario.login}" required="true" id="inputLoginUser"/>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="inputSenhaUser">#{i18n.userSenha}</label>
-                                <p:password styleClass="form-control" placeholder="#{i18n.userSenha}" value="#{usuarioMB.usuario.senha}" required="true" id="inputSenhaUser" converter="criptMD5Converter">
-                                	<!-- <f:validateRegex pattern="[a-z0-9]{3,15}"/>  DEPOIS VER UM REGEX VALIDO-->
-                                </p:password>
-                            </div>	
-                            
-                            <div class="form-group">
-                                <label for="inputLoginNome">#{i18n.userNome}</label>
-                                <p:inputText styleClass="form-control" placeholder="#{i18n.userNome}" value="#{usuarioMB.usuario.nome}" required="true" id="inputLoginNome"/>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="inputPerfilUser">#{i18n.userPerfil}</label>
-                                <h:selectOneMenu value="#{usuarioMB.usuario.perfil}" id="inputPerfilUser" styleClass="form-control" converter="enumConverter" required="true">
-                                	<f:selectItem itemLabel="---Selecione---" noSelectionOption="true"/>
-                                	<f:selectItems value="#{usuarioMB.perfils}"/>
-                                </h:selectOneMenu>
-                            </div>
-                            
-                            <div class="form-group">
-                            	<p:link href="#" id="cancelarCadastro" value="#{i18n.cancelarCadastro}" styleClass="fa"/>
-                            	<br/><br/>
-                            	<p:commandButton value="#{i18n.userSalvar}" actionListener="#{usuarioMB.salvarUser}" styleClass="btn btn-lg btn-primary btn-block fa" update="grow2"/>
-                            </div>
                             						
 					</h:form>
 				</div>

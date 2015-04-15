@@ -5,11 +5,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -100,15 +101,25 @@ public class UsuarioMB implements Serializable{
 	 * Depois vou fazer um esquema para mandar mensagem de retorno para o usuario
 	 * Por que este bean esta com escopo de sessao
 	 * */
-	public void salvarUser(ActionEvent event) throws IOException{
+	public String salvarUser() throws IOException{
 		FacesContext context = FacesContext.getCurrentInstance();
+		ResourceBundle i18n = context.getApplication().getResourceBundle(context, "i18n");
 		
 		usuario.setDataCadastro(new Date());
 		usuario.setAtivo(true);
-		usuarioService.salvar(usuario);
+		try {
+			usuarioService.salvar(usuario);
+		} catch (Exception e) {
+			usuario.setId(null);
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, i18n.getString("error"), i18n.getString("userNotSave")));
+			return null;
+		}
 		
 		usuario = new Usuario();
 		
-		context.getExternalContext().redirect("login.xhtml");
+		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, i18n.getString("sucess"), i18n.getString("userSalvo")));
+		
+		
+		return null;
 	}
 }

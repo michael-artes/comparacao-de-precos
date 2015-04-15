@@ -55,6 +55,9 @@ public class Usuario implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_alteracao")
 	private Date dataAlteracao;
+	
+	@Column(name="email", length=100, nullable=false)
+	private String email;
 
 	public Integer getId() {
 		return id;
@@ -120,6 +123,14 @@ public class Usuario implements Serializable{
 		this.dataAlteracao = dataAlteracao;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -129,6 +140,7 @@ public class Usuario implements Serializable{
 				+ ((dataAlteracao == null) ? 0 : dataAlteracao.hashCode());
 		result = prime * result
 				+ ((dataCadastro == null) ? 0 : dataCadastro.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
@@ -157,6 +169,11 @@ public class Usuario implements Serializable{
 			if (other.dataCadastro != null)
 				return false;
 		} else if (!dataCadastro.equals(other.dataCadastro))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -188,7 +205,7 @@ public class Usuario implements Serializable{
 		return "Usuario [id=" + id + ", login=" + login + ", nome=" + nome
 				+ ", senha=" + senha + ", perfil=" + perfil + ", ativo="
 				+ ativo + ", dataCadastro=" + dataCadastro + ", dataAlteracao="
-				+ dataAlteracao + "]";
+				+ dataAlteracao + ", email=" + email + "]";
 	}
 	
 }

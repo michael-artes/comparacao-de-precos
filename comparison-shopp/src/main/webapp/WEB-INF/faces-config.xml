@@ -17,12 +17,27 @@
     </application>
     
     <navigation-rule>
+    
     	<navigation-case>
     		<from-outcome>login</from-outcome>
     		<to-view-id>/login.xhtml</to-view-id>
     		<redirect/>
     	</navigation-case>
+    	
+    	<navigation-case>
+    		<from-outcome>home</from-outcome>
+    		<to-view-id>/pags/home/home.xhtml</to-view-id>
+    		<redirect/>
+    	</navigation-case>
+    	
+    	<navigation-case>
+    		<from-outcome>cadastro-empresa</from-outcome>
+    		<to-view-id>/pags/empresa/cadastro-empresa.xhtml</to-view-id>
+    		<redirect/>
+    	</navigation-case>
+    	
     </navigation-rule>
+    
     
 
 </faces-config>

@@ -5,9 +5,9 @@ $(document).ready(function(){
 		$("#formCadastroUser").show("slow");
 	});
 	
-	$("#cancelarCadastro").click(function(){
-		$("#formLogin").show("slow");
-		$("#formCadastroUser").hide("slow");
-	});
-	
 });
+
+function telaLogin(){
+	$("#formLogin").show("slow");
+	$("#formCadastroUser").hide("slow");
+}

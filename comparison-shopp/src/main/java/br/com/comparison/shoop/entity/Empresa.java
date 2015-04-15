@@ -1,5 +1,6 @@
 package br.com.comparison.shoop.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,8 +18,14 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="empresa", schema="web")
-public class Empresa {
+public class Empresa implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+
 	@Id
 	@SequenceGenerator(name="generator_empresa", sequenceName="web.empresa_id_seq", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.AUTO, generator="generator_empresa")
@@ -51,6 +58,9 @@ public class Empresa {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_alteracao")
 	private Date dataAlteracao;
+	
+	@Column(name="email", length=100, nullable=false)
+	private String email;
 
 	public Integer getId() {
 		return id;
@@ -123,6 +133,14 @@ public class Empresa {
 	public void setDataAlteracao(Date dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	@Override
 	public int hashCode() {
@@ -136,6 +154,7 @@ public class Empresa {
 				+ ((dataCadastro == null) ? 0 : dataCadastro.hashCode());
 		result = prime * result
 				+ ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
 				+ ((nomeFantasia == null) ? 0 : nomeFantasia.hashCode());
@@ -176,6 +195,11 @@ public class Empresa {
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -205,7 +229,7 @@ public class Empresa {
 				+ ", nomeFantasia=" + nomeFantasia + ", razaoSocial="
 				+ razaoSocial + ", descricao=" + descricao + ", ativo=" + ativo
 				+ ", dataCadastro=" + dataCadastro + ", dataAlteracao="
-				+ dataAlteracao + "]";
+				+ dataAlteracao + ", email=" + email + "]";
 	}
 
 }
