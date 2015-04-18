@@ -24,7 +24,7 @@
 	
 		<h:form styleClass="form-signin" id="formLogin" prependId="false">
 		
-			<p:growl id="grow1" showDetail="true" sticky="true" />  
+			<p:growl id="grow1" showDetail="true" />  
 			
 			<p:outputLabel styleClass="form-signin-heading fa" > <i class="fa fa-user"></i> #{i18n.logarSistema} </p:outputLabel>
 			
@@ -34,11 +34,11 @@
 			<label for="inputSenha" class="sr-only">#{i18n.senhaLoginInfo}</label>
 			<p:password styleClass="form-control fa" required="true" placeholder="#{i18n.senhaLoginInfo}" value="#{loginMB.senha}" id="inputSenha" converter="criptMD5Converter"/>
 			
-			<div class="checkbox">
-				<label>
-					<h:selectBooleanCheckbox value="#{loginMB.lembrarMe}"/>	<h:outputText value="#{i18n.lembrarME}" styleClass="fa"/>
-				</label>
-			</div>
+				<div class="checkbox">
+					<label>
+						<h:selectBooleanCheckbox value="#{loginMB.lembrarMe}"/>	<h:outputText value="#{i18n.lembrarME}" styleClass="fa"/>
+					</label>
+				</div>
 			
 			<p:link href="#" id="cadastroNovoUsuario" value="#{i18n.usuarioCadastrar}" styleClass="fa"/>
 			
@@ -55,8 +55,10 @@
 				<div class="col-lg-4">
 					<h:form id="formCadastroUser" style="display: none;" prependId="false">
 					
-						<p:panel id="panel" header="Form" style="margin-top: 10px;">
+						<p:panel id="panel" header="#{i18n.formCadastroUser}" style="margin-top: 10px;" styleClass="fa">
 								<p:growl id="grow2" showDetail="true" sticky="true" />
+								
+								<p:separator/>
 						
 	                            <div class="form-group">
 	                                <label for="inputLoginUser">#{i18n.userLogin}</label>
@@ -65,9 +67,9 @@
 	                            
 	                            <div class="form-group">
 	                                <label for="inputSenhaUser">#{i18n.userSenha}</label>
-	                                <p:password styleClass="form-control" placeholder="#{i18n.userSenha}" value="#{usuarioMB.usuario.senha}" feedback="true" 
-	                                			required="true" id="inputSenhaUser" converter="criptMD5Converter" weakLabel="Fraco" goodLabel="Bom" strongLabel="Muito Bom">
-	                                	<!-- <f:validateRegex pattern="[a-z0-9]{3,15}"/>  DEPOIS VER UM REGEX VALIDO PARA VALIDAR A SENHA-->
+	                                <p:password styleClass="form-control" placeholder="#{i18n.userSenha}" value="#{usuarioMB.usuario.senha}" feedback="true" redisplay="true" 
+	                                			required="true" id="inputSenhaUser" converter="criptMD5Converter" promptLabel="#{i18n.inserirSenha}" weakLabel="#{i18n.fraco}" goodLabel="#{i18n.good}" strongLabel="#{i18n.veryGood}">
+	                                	<!-- <f:validateRegex pattern="[a-zA-Z_0-9]{3,}"/> -->
 	                                </p:password>
 	                            </div>	
 	                            
@@ -79,7 +81,7 @@
 	                            <div class="form-group">
 	                                <label for="inputEmailUser">#{i18n.userEmail}</label>
 	                                <p:inputText styleClass="form-control" placeholder="#{i18n.userEmail}" value="#{usuarioMB.usuario.email}" required="true" id="inputEmailUser">
-	                                	<!-- <f:validateRegex pattern="[a-z0-9]{3,15}"/>  DEPOIS VER UM REGEX VALIDO PARA VALIDAR E-MAIL -->
+	                                	<f:validator validatorId="emailValidator"/>
 	                                </p:inputText>
 	                            </div>	
 	                            
