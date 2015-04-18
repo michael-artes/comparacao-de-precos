@@ -145,6 +145,10 @@ public class UsuarioMB implements Serializable{
 		builder.append(" Por favor faça o login e utilize nossos serviços.");
 		builder.append(" Obrigado!!!");
 		
-		new SendMail(usuario.getEmail(), "Conta Criada com sucesso", builder.toString()).sendMail();
+		SendMail mail = new SendMail(usuario.getEmail(), "Conta Criada com sucesso", builder.toString());
+		
+		//Cria uma thread para enviar e-mail
+		Thread t = new Thread(mail);
+		t.start();
 	}
 }

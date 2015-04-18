@@ -12,7 +12,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 
-public class SendMail {
+public class SendMail extends Thread{
 	
 	final static String username = "comparison.shopp@gmail.com";
 	final static String senha = "C0mp4r1s0n-sh0pp";
@@ -54,9 +54,8 @@ public class SendMail {
 		this.mensagem = mensagem;
 	}
 
-
-
-	public void sendMail(){
+	@Override
+	public void run(){
 		
 		Properties props = new Properties();
 		
@@ -97,5 +96,9 @@ public class SendMail {
 		}
 		
 	}
-	
+
+
+	public void sendMail(){
+		run();
+	}
 }
