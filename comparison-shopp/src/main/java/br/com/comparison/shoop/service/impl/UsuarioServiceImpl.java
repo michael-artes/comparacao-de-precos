@@ -20,19 +20,6 @@ public class UsuarioServiceImpl implements UsuarioService, Serializable{
 	private UsuarioDAO usuarioDAO;
 
 	@Override
-	public Usuario findUser(Usuario usuario) {
-		
-		try {
-			usuarioDAO.save(usuario);
-		} catch (Exception e) {
-			System.out.println(e.toString());
-			return null;
-		}
-
-		return usuario;
-	}
-
-	@Override
 	@Transacao
 	public void salvar(Usuario usuario) {
 		usuarioDAO.save(usuario);
