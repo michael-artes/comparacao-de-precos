@@ -53,5 +53,10 @@ public class GenericDAOImpl<T> implements GenericDAO<T>, Serializable{
 		Criteria crit = session.createCriteria(klass);
 		return crit.list();
 	}
+
+	@Override
+	public T loadById(int id) {
+		return entityManager.getReference(klass, id);
+	}
 	
 }

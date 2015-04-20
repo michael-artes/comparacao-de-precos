@@ -16,43 +16,50 @@
 	       	<div class="row">
 				<div class="col-lg-1"></div>
 				<div class="col-lg-10">
+				
+				
 					<h3> <i class="fa fa-building fa-1x"></i> Cadastrar Empresa</h3>
 
-					<h:form>
-						<p:messages showDetail="true"/>
+					<h:form prependId="false" id="formCadEmpresa">
 					
+						<p:messages showDetail="true"/>
 						<p:separator/>
-						
-						<div class="form-group">
-							<label for="nomeFantasia">Nome Fantasia:</label>
-    						<p:inputText styleClass="form-control" placeholder="informe o nome fantasia..." required="true" id="nomeFantasia"/>
-						</div>
-						
-						<div class="form-group">
-							<label for="cnpj">CNPJ:</label>
-    						<p:inputMask mask="99.999.999/9999-99" placeholder="informe o cnpj..." id="cnpj" styleClass="form-control" required="true">
-								<stella:validateCNPJ/>
-    						</p:inputMask>
-						</div>
-						
-						<div class="form-group">
-							<label for="email">Email:</label>
-    						<p:inputText styleClass="form-control" placeholder="informe o email..." required="true" id="email">
-    							<f:validator validatorId="emailValidator"/>
-    						</p:inputText>
-						</div>
-						
-						<div class="form-group">
-							<label for="descricao">Descrição:</label> 
-							<h:outputLink value="#" id="infoDescricao"> <p:spacer width="10"/> <i class="fa fa-exclamation"></i></h:outputLink>
-							<p:tooltip value="Por favor informe uma descrição para a empresa. Ex: Endereço, Telefone, Site e etc..." for="infoDescricao"/>
+					
+							<div class="form-group">
+								<label for="nomeFantasia">Nome Fantasia:</label>
+	    						<p:inputText styleClass="form-control" placeholder="informe o nome fantasia..." required="true" id="nomeFantasia" value="#{empresaMB.empresa.nomeFantasia}"/>
+							</div>
 							
-    						<p:editor id="descricao" required="true" />
-						</div>
-						
-						<div class="form-group">
-							<h:commandButton value="Salvar Empresa" styleClass="btn btn-lg btn-primary btn-block"/>
-						</div>
+							<div class="form-group">
+								<label for="razaoSocial">Razão Social:</label>
+	    						<p:inputText styleClass="form-control" placeholder="informe a razão social..." required="true" id="razaoSocial" value="#{empresaMB.empresa.razaoSocial}"/>
+							</div>
+							
+							<div class="form-group">
+								<label for="cnpj">CNPJ:</label>
+	    						<p:inputMask mask="99.999.999/9999-99" placeholder="informe o cnpj..." id="cnpj" styleClass="form-control" required="true" value="#{empresaMB.empresa.cnpj}">
+									<!-- <stella:validateCNPJ/> -->
+	    						</p:inputMask>
+							</div>
+							
+							<div class="form-group">
+								<label for="email">Email:</label>
+	    						<p:inputText styleClass="form-control" placeholder="informe o email..." required="true" id="email" value="#{empresaMB.empresa.email}">
+	    							<f:validator validatorId="emailValidator"/>
+	    						</p:inputText>
+							</div>
+							
+							<div class="form-group">
+								<label for="descricao">Descrição:</label> 
+								<h:outputLink value="#" id="infoDescricao"> <p:spacer width="10"/> <i class="fa fa-exclamation"></i></h:outputLink>
+								<p:tooltip value="Por favor informe uma descrição para a empresa. Ex: Endereço, Telefone, Site e etc..." for="infoDescricao"/>
+								
+								<p:inputTextarea id="descricao" required="true" styleClass="form-control" value="#{empresaMB.empresa.descricao}"/>
+							</div>
+							
+							<div class="form-group">
+								<h:commandButton value="Salvar Empresa" styleClass="btn btn-lg btn-primary btn-block" action="#{empresaMB.salvarEmpresa}"/>
+							</div>
 										
 					</h:form>
 					

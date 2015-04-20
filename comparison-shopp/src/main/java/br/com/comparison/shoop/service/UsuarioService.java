@@ -1,11 +1,14 @@
 package br.com.comparison.shoop.service;
 
 import br.com.comparison.shoop.entity.Usuario;
+import br.com.comparison.shoop.enuns.EnumPerfil;
 
-public interface UsuarioService {
+public interface UsuarioService extends GenericService<Usuario>{
 	
-	public void salvar(Usuario usuario);
+	public Usuario existeUsuario(String login, String senha);
 	
-	public boolean isExisteUsuario(String login, String senha);
+	public void enviarEmailNewUser(Usuario usuario);
+	
+	public boolean podeCadastrarEmpresa(int idUser, EnumPerfil perfil);
 	
 }

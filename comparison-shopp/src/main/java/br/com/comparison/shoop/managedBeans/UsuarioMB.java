@@ -16,11 +16,9 @@ import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 
-import br.com.comparison.shoop.cript.CriptMD5;
 import br.com.comparison.shoop.entity.Usuario;
 import br.com.comparison.shoop.enuns.EnumPerfil;
 import br.com.comparison.shoop.service.UsuarioService;
-import br.com.comparison.shoop.util.SendMail;
 
 @Named
 @SessionScoped
@@ -43,6 +41,7 @@ public class UsuarioMB implements Serializable{
 	private String login;
 	private boolean logado;
 	private Date dataAcesso;
+	private EnumPerfil enumPerfil;
 	
 	@PostConstruct
 	public void init(){
@@ -92,6 +91,12 @@ public class UsuarioMB implements Serializable{
 	public void setIdUser(Integer idUser) {
 		this.idUser = idUser;
 	}
+	public EnumPerfil getEnumPerfil() {
+		return enumPerfil;
+	}
+	public void setEnumPerfil(EnumPerfil enumPerfil) {
+		this.enumPerfil = enumPerfil;
+	}
 	
 	
 	
@@ -125,7 +130,7 @@ public class UsuarioMB implements Serializable{
 		}
 
 		try {
-			enviarEmailNewUser(usuario);
+			usuarioService.enviarEmailNewUser(usuario);
 		} catch (Exception e) {
 			LOGGER.error("Não foi possivel enviar e-mail de criação de conta", e);
 		}
@@ -138,17 +143,17 @@ public class UsuarioMB implements Serializable{
 	}
 	
 	
-	private void enviarEmailNewUser(Usuario usuario) {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Sua conta foi criada com sucesso Sr(a) " + usuario.getNome());
-		builder.append(" Sua senha é: " + CriptMD5.getInstance().decript(usuario.getSenha()));
-		builder.append(" Por favor faça o login e utilize nossos serviços.");
-		builder.append(" Obrigado!!!");
+	public boolean isVisualizaDetalhesCliente(){
 		
-		SendMail mail = new SendMail(usuario.getEmail(), "Conta Criada com sucesso", builder.toString());
+		if (enumPerfil == EnumPerfil.EMPRESA) {
+			return true;
+		}
 		
-		//Cria uma thread para enviar e-mail
-		Thread t = new Thread(mail);
-		t.start();
+		return false;
 	}
+	
+	public boolean isPodeCadastrarEmpresa(){
+		return usuarioService.podeCadastrarEmpresa(idUser, enumPerfil);
+	}
+	
 }

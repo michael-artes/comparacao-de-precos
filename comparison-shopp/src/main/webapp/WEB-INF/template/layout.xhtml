@@ -156,12 +156,16 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#menuCliente"><i class="fa fa-fw fa-bar-chart-o"></i> Cliente <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="menuCliente" class="collapse">
                             <li>
-                                <p:commandLink action="cadastro-empresa">
+                                <p:commandLink action="cadastro-empresa" rendered="#{usuarioMB.podeCadastrarEmpresa}">
 		                        	<i class="fa fa-fw fa-dashboard"></i> Cadastrar Empresa
 		                        </p:commandLink>
                             </li>
                             <li>
-                                <a href="#"> <i class="fa fa-align-left"></i> Detalhes da Empresa</a>
+                            	<p:link outcome="detalhes-empresa" rendered="#{usuarioMB.visualizaDetalhesCliente}" style="text-decoration: none;">
+                                	<i class="fa fa-align-left"></i> Detalhes da Empresa
+                                	
+                                	<f:param value="#{usuarioMB.idUser}" name="idUser"/>
+		                        </p:link>
                             </li>
                         </ul>
                     </li>

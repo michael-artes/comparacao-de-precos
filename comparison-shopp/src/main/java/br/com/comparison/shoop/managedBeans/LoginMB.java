@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.comparison.shoop.entity.Usuario;
 import br.com.comparison.shoop.service.UsuarioService;
 
 @Named
@@ -56,10 +57,16 @@ public class LoginMB implements Serializable{
 		FacesContext context = FacesContext.getCurrentInstance();
 		ResourceBundle i18n = context.getApplication().getResourceBundle(context, "i18n");
 		
-		if (usuarioService.isExisteUsuario(login, senha)) {
+		Usuario usuario = usuarioService.existeUsuario(login, senha);
+		
+		if (usuario != null) {
+			
 			usuarioMB.setNome(getLogin());
 			usuarioMB.setLogado(true);
 			usuarioMB.setDataAcesso(new Date());
+			usuarioMB.setIdUser(usuario.getId());
+			usuarioMB.setEnumPerfil(usuario.getPerfil());
+			
 			context.getExternalContext().redirect("pags/home/home.xhtml");
 		}
 

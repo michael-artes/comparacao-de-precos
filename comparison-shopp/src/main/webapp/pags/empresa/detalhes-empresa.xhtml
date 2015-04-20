@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:stella="http://stella.caelum.com.br/faces2">
+		
+		
+	<f:metadata>
+		<f:viewParam name="idUser" value="#{empresaMB.idUser}"/>
+		<f:viewAction action="#{empresaMB.preencherEmpresaByIdUser}"/>
+	</f:metadata>	
+		
+	<ui:define name="titulo">Detalhes Empresa</ui:define>
+	
+	<ui:define name="corpo">
+	
+      <div class="jumbotron" style="margin-top: 15px;">
+	       	<div class="row">
+				<div class="col-lg-12">
+				
+				
+					<h3> <i class="fa fa-building fa-1x"></i> Detalhes Empresa </h3>
+
+					<h:form prependId="false" id="detalhesEmpresa">
+					
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>E-mail</th>
+                                        <th>CNPJ</th>
+                                        <th>Descrições</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td> <h:outputText value="#{empresaMB.empresa.nomeFantasia}"/> </td>
+                                        <td> <h:outputText value="#{empresaMB.empresa.email}"/> </td>
+                                        <td> <h:outputText value="#{empresaMB.empresa.cnpj}"/> </td>
+                                        <td> <h:outputText value="#{empresaMB.empresa.descricao}"/> </td>
+                                        <td>  </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>											
+										
+					</h:form>
+					
+				</div>
+	       	</div>
+        
+      </div>
+		
+	</ui:define>		
+
+
+</ui:composition>

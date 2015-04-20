@@ -36,6 +36,12 @@
     		<redirect/>
     	</navigation-case>
     	
+    	<navigation-case>
+    		<from-outcome>detalhes-empresa</from-outcome>
+    		<to-view-id>/pags/empresa/detalhes-empresa.xhtml</to-view-id>
+    		<redirect/>
+    	</navigation-case>
+    	
     </navigation-rule>
     
     
