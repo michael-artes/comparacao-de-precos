@@ -7,6 +7,10 @@
 		xmlns:p="http://primefaces.org/ui"
 		xmlns:stella="http://stella.caelum.com.br/faces2">
 		
+	<f:metadata>
+		<f:viewParam name="isCadastrarEmpresa" value="#{empresaMB.cadastrarEmpresa}"></f:viewParam>
+		<f:viewAction action="#{empresaMB.preencherParametros}"/>
+	</f:metadata>			
 		
 	<ui:define name="titulo">Home</ui:define>
 	
@@ -22,7 +26,7 @@
 
 					<h:form prependId="false" id="formCadEmpresa">
 					
-						<p:messages showDetail="true"/>
+						<p:messages showDetail="true" closable="true"/>
 						<p:separator/>
 					
 							<div class="form-group">
@@ -38,7 +42,7 @@
 							<div class="form-group">
 								<label for="cnpj">CNPJ:</label>
 	    						<p:inputMask mask="99.999.999/9999-99" placeholder="informe o cnpj..." id="cnpj" styleClass="form-control" required="true" value="#{empresaMB.empresa.cnpj}">
-									<!-- <stella:validateCNPJ/> -->
+									<stella:validateCNPJ/>
 	    						</p:inputMask>
 							</div>
 							

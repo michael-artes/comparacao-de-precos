@@ -10,7 +10,7 @@
 		
 	<f:metadata>
 		<f:viewParam name="idUser" value="#{empresaMB.idUser}"/>
-		<f:viewAction action="#{empresaMB.preencherEmpresaByIdUser}"/>
+		<f:viewAction action="#{empresaMB.preencherParametros}"/>
 	</f:metadata>	
 		
 	<ui:define name="titulo">Detalhes Empresa</ui:define>
@@ -33,6 +33,7 @@
                                         <th>Nome</th>
                                         <th>E-mail</th>
                                         <th>CNPJ</th>
+                                        <th>Ativo</th>
                                         <th>Descrições</th>
                                         <th></th>
                                     </tr>
@@ -42,20 +43,77 @@
                                         <td> <h:outputText value="#{empresaMB.empresa.nomeFantasia}"/> </td>
                                         <td> <h:outputText value="#{empresaMB.empresa.email}"/> </td>
                                         <td> <h:outputText value="#{empresaMB.empresa.cnpj}"/> </td>
-                                        <td> <h:outputText value="#{empresaMB.empresa.descricao}"/> </td>
-                                        <td>  </td>
+                                        <td> 
+                                        	<h:outputText rendered="#{empresaMB.empresa.ativo}" value="Sim"/>
+                                        	<h:outputText rendered="#{!empresaMB.empresa.ativo}" value="Não"/>
+                                        </td>
+                                        <td> 
+                                        	<h:outputLink id="descricaoEmpresa" value="#">
+                                        		<h:outputText value="Descrição"/>
+                                        	</h:outputLink>
+                                        	<p:tooltip for="descricaoEmpresa" value="#{empresaMB.empresa.descricao}"/> 
+                                       	</td>
+                                        <td> 
+                                        	<p:commandButton styleClass="btn btn-xs btn-primary" value="Atualizar" onclick="PF('modalEmpresa').show()" title="Atualizar"/>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>											
 										
+					     
 					</h:form>
 					
 				</div>
 	       	</div>
         
       </div>
-		
+      
+      
+	<h:form id="atualizaEmpresa">
+	     <p:dialog header="Atualizar Empresa" widgetVar="modalEmpresa" modal="true" width="500" position="center, bottom">
+	     
+		     	<p:panel id="panelAtualizaEmpresa">
+						<p:messages showDetail="true" closable="true"/>
+										
+						<div class="form-group">
+							<label for="nomeFantasia">Nome Fantasia:</label>
+	 						<p:inputText styleClass="form-control" placeholder="informe o nome fantasia..." required="true" id="nomeFantasia" value="#{empresaMB.empresa.nomeFantasia}"/>
+						</div>
+						
+						<div class="form-group">
+							<label for="email">Email:</label>
+	 						<p:inputText styleClass="form-control" placeholder="informe o email..." required="true" id="email" value="#{empresaMB.empresa.email}">
+	 							<f:validator validatorId="emailValidator"/>
+	 						</p:inputText>
+						</div>
+						
+						<div class="form-group">
+							<label for="ativo">Ativo</label>
+							<h:selectOneMenu value="#{empresaMB.empresa.ativo}" styleClass="form-control" required="true">
+								<f:selectItem itemLabel="---Selecione---" itemValue=""/>
+								<f:selectItem itemLabel="Ativo" itemValue="true"/>
+								<f:selectItem itemLabel="Inativo" itemValue="false"/>
+							</h:selectOneMenu>									
+						</div>
+						
+						<div class="form-group">
+							<label for="descricao">Descrição:</label> 
+							<h:outputLink value="#" id="infoDescricao"> <p:spacer width="10"/> <i class="fa fa-exclamation"></i></h:outputLink>
+							<p:tooltip value="Por favor informe uma descrição para a empresa. Ex: Endereço, Telefone, Site e etc..." for="infoDescricao"/>
+							
+							<p:inputTextarea id="descricao" required="true" styleClass="form-control" value="#{empresaMB.empresa.descricao}"/>
+						</div>
+						
+						<div class="form-group">
+							<h:commandButton value="Atualizar" styleClass="btn btn-lg btn-primary btn-block" action="#{empresaMB.atualizarEmpresa}">
+								<f:ajax render="panelAtualizaEmpresa" execute="@form"/>
+							</h:commandButton>
+						</div>
+		     	</p:panel>
+		     	
+	     </p:dialog>
+	</h:form>
 	</ui:define>		
 
 

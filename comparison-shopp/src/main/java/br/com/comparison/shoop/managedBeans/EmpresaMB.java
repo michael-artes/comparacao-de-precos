@@ -40,6 +40,7 @@ public class EmpresaMB implements Serializable {
 	
 	private Empresa empresa;
 	private int idUser;
+	private boolean isCadastrarEmpresa = false;
 	
 
 	public Empresa getEmpresa() {
@@ -54,16 +55,23 @@ public class EmpresaMB implements Serializable {
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
 	}
+	public boolean isCadastrarEmpresa() {
+		return isCadastrarEmpresa;
+	}
+	public void setCadastrarEmpresa(boolean isCadastrarEmpresa) {
+		this.isCadastrarEmpresa = isCadastrarEmpresa;
+	}
+	
 	
 	
 	
 	@PostConstruct
 	public void init(){
-		
+	
 		if (empresa == null) 
 			empresa = new Empresa();
 			
-		}
+	}
 		
 	
 	public String salvarEmpresa(){
@@ -84,12 +92,40 @@ public class EmpresaMB implements Serializable {
 		return "home";
 	}
 	
+	public String atualizarEmpresa(){
+		FacesContext context = FacesContext.getCurrentInstance();
+		ResourceBundle i18n = context.getApplication().getResourceBundle(context, "i18n");
+
+		try {
+			empresaService.update(empresa);
+		} catch (Exception e) {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, i18n.getString("error"), i18n.getString("empresaNotSalve")));
+			return null;
+		}
+		
+		return "detalhes-empresa?faces-redirect=true&idUser="+ idUser;
+	}
 	
 	
-	public void preencherEmpresaByIdUser(){
+	
+	public String preencherParametros(){
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		ResourceBundle i18n = context.getApplication().getResourceBundle(context, "i18n");
+		
+		if (isCadastrarEmpresa) {
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, i18n.getString("error"), "Para visualizar detalhes primeiro cadastre uma empresa"));
+			return null;
+		}
 		
 		if (idUser > 0)
 			empresa = empresaService.findEmpresaByIdUser(idUser);
+		
+		if (empresa == null) {
+			return "cadastro-empresa?isCadastrarEmpresa=true";
+		}
+		
+		return null;
 		
 	}
 
