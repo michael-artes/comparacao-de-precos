@@ -122,7 +122,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> #{usuarioMB.nome} <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> #{usuarioMB.userSession.nome} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
@@ -156,15 +156,13 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#menuCliente"><i class="fa fa-fw fa-bar-chart-o"></i> Cliente <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="menuCliente" class="collapse">
                             <li>
-                                <p:commandLink action="cadastro-empresa" rendered="#{usuarioMB.podeCadastrarEmpresa}">
+                                <p:link outcome="cadastro-empresa" rendered="#{!autorizacaoMB.cadastrouEmpresa and autorizacaoMB.userEmpresaAutorizado}">
 		                        	<i class="fa fa-fw fa-dashboard"></i> Cadastrar Empresa
-		                        </p:commandLink>
+		                        </p:link>
                             </li>
                             <li>
-                            	<p:link outcome="detalhes-empresa" rendered="#{usuarioMB.visualizaDetalhesCliente}" style="text-decoration: none;">
+                            	<p:link outcome="detalhes-empresa" rendered="#{autorizacaoMB.cadastrouEmpresa and autorizacaoMB.userEmpresaAutorizado}">
                                 	<i class="fa fa-align-left"></i> Detalhes da Empresa
-                                	
-                                	<f:param value="#{usuarioMB.idUser}" name="idUser"/>
 		                        </p:link>
                             </li>
                         </ul>
@@ -173,10 +171,14 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#menuAnuncio"><i class="fa fa-fw fa-bar-chart-o"></i> Anuncio <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="menuAnuncio" class="collapse">
                             <li>
-                                <a href="#">Cadastrar Anuncios</a>
+                                <p:link outcome="cadastro-anuncio" rendered="#{autorizacaoMB.cadastrouEmpresa and autorizacaoMB.userEmpresaAutorizado}">
+                               		<i class="fa fa-fw fa-dashboard"></i> Cadastrar Anuncios
+                               	</p:link>
                             </li>
                             <li>
-                                <a href="#">Visualizar Anuncios</a>
+                                <p:link outcome="detalhes-anuncio" rendered="#{autorizacaoMB.cadastrouEmpresa and autorizacaoMB.userEmpresaAutorizado}">
+                               		<i class="fa fa-align-left"></i> Visualizar Anuncios
+                                </p:link>
                             </li>
                         </ul>
                     </li>

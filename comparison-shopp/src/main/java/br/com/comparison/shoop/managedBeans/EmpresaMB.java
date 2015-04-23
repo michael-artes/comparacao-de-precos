@@ -36,30 +36,13 @@ public class EmpresaMB implements Serializable {
 	private UsuarioMB usuarioMB;
 	
 	
-	
-	
 	private Empresa empresa;
-	private int idUser;
-	private boolean isCadastrarEmpresa = false;
-	
 
 	public Empresa getEmpresa() {
 		return empresa;
 	}
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
-	}
-	public int getIdUser() {
-		return idUser;
-	}
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
-	}
-	public boolean isCadastrarEmpresa() {
-		return isCadastrarEmpresa;
-	}
-	public void setCadastrarEmpresa(boolean isCadastrarEmpresa) {
-		this.isCadastrarEmpresa = isCadastrarEmpresa;
 	}
 	
 	
@@ -80,16 +63,17 @@ public class EmpresaMB implements Serializable {
 
 		empresa.setAtivo(true);
 		empresa.setDataCadastro(new Date());
-		empresa.setUsuario( usuarioService.loadById(usuarioMB.getIdUser()) );
+		empresa.setUsuario( usuarioService.loadById(usuarioMB.getUserSession().getIdUser()) );
 		
 		try {
 			empresaService.salvar(empresa);
+			usuarioMB.getUserSession().setEmpresa(empresa);
 		} catch (Exception e) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, i18n.getString("error"), i18n.getString("empresaNotSalve")));
 			return null;
 		}
 		
-		return "home";
+		return "detalhes-empresa";
 	}
 	
 	public String atualizarEmpresa(){
@@ -98,31 +82,23 @@ public class EmpresaMB implements Serializable {
 
 		try {
 			empresaService.update(empresa);
+			usuarioMB.getUserSession().setEmpresa(empresa);
 		} catch (Exception e) {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, i18n.getString("error"), i18n.getString("empresaNotSalve")));
 			return null;
 		}
 		
-		return "detalhes-empresa?faces-redirect=true&idUser="+ idUser;
+		return "detalhes-empresa";
 	}
 	
 	
 	
-	public String preencherParametros(){
+	public String processaParametros(){
 		
-		FacesContext context = FacesContext.getCurrentInstance();
-		ResourceBundle i18n = context.getApplication().getResourceBundle(context, "i18n");
-		
-		if (isCadastrarEmpresa) {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, i18n.getString("error"), "Para visualizar detalhes primeiro cadastre uma empresa"));
-			return null;
-		}
-		
-		if (idUser > 0)
-			empresa = empresaService.findEmpresaByIdUser(idUser);
+		empresa = usuarioMB.getUserSession().getEmpresa();
 		
 		if (empresa == null) {
-			return "cadastro-empresa?isCadastrarEmpresa=true";
+			return "cadastro-empresa";
 		}
 		
 		return null;

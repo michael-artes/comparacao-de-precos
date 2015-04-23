@@ -17,8 +17,8 @@ public class EnumConverter implements Converter{
 			return EnumPerfil.EMPRESA;
 		}
 		
-		if ("COMUM".equals(string)) {
-			return EnumPerfil.COMUM;
+		if ("CONSUMIDOR".equals(string)) {
+			return EnumPerfil.CONSUMIDOR;
 		}
 		
 		return null;

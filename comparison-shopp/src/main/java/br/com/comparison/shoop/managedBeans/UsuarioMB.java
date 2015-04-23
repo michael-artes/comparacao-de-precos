@@ -18,6 +18,7 @@ import org.jboss.logging.Logger;
 
 import br.com.comparison.shoop.entity.Usuario;
 import br.com.comparison.shoop.enuns.EnumPerfil;
+import br.com.comparison.shoop.requisicao.UserSession;
 import br.com.comparison.shoop.service.UsuarioService;
 
 @Named
@@ -36,18 +37,18 @@ public class UsuarioMB implements Serializable{
 	private List<EnumPerfil> perfis = new ArrayList<EnumPerfil>(0);
 	
 	//Atributos para identificar o usuario da sessao
-	private Integer idUser;
-	private String nome;
-	private String login;
-	private boolean logado;
-	private Date dataAcesso;
-	private EnumPerfil enumPerfil;
+	private UserSession userSession;
+	
 	
 	@PostConstruct
 	public void init(){
 		
 		if (usuario == null) {
 			usuario = new Usuario();
+		}
+		
+		if (userSession == null) {
+			userSession = new UserSession();
 		}
 	}
 	
@@ -61,41 +62,11 @@ public class UsuarioMB implements Serializable{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	public String getNome() {
-		return nome;
+	public UserSession getUserSession() {
+		return userSession;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getLogin() {
-		return login;
-	}
-	public void setLogin(String login) {
-		this.login = login;
-	}
-	public Date getDataAcesso() {
-		return dataAcesso;
-	}
-	public void setDataAcesso(Date dataAcesso) {
-		this.dataAcesso = dataAcesso;
-	}
-	public boolean isLogado() {
-		return logado;
-	}
-	public void setLogado(boolean logado) {
-		this.logado = logado;
-	}
-	public Integer getIdUser() {
-		return idUser;
-	}
-	public void setIdUser(Integer idUser) {
-		this.idUser = idUser;
-	}
-	public EnumPerfil getEnumPerfil() {
-		return enumPerfil;
-	}
-	public void setEnumPerfil(EnumPerfil enumPerfil) {
-		this.enumPerfil = enumPerfil;
+	public void setUserSession(UserSession userSession) {
+		this.userSession = userSession;
 	}
 	
 	
@@ -145,15 +116,15 @@ public class UsuarioMB implements Serializable{
 	
 	public boolean isVisualizaDetalhesCliente(){
 		
-		if (enumPerfil == EnumPerfil.EMPRESA) {
+		if (userSession.getEnumPerfil() == EnumPerfil.EMPRESA) {
 			return true;
 		}
 		
 		return false;
 	}
 	
-	public boolean isPodeCadastrarEmpresa(){
-		return usuarioService.podeCadastrarEmpresa(idUser, enumPerfil);
+	public boolean isCadastrouEmpresa(){
+		return usuarioService.isCadastrouEmpresa(userSession.getIdUser(), userSession.getEnumPerfil());
 	}
 	
 }

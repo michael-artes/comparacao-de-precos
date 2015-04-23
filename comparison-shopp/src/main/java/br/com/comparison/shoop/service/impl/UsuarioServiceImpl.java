@@ -81,19 +81,19 @@ public class UsuarioServiceImpl implements UsuarioService, Serializable{
 	}
 
 	@Override
-	public boolean podeCadastrarEmpresa(int idUser, EnumPerfil perfil) {
+	public boolean isCadastrouEmpresa(int idUser, EnumPerfil perfil) {
 		
 		if (EnumPerfil.EMPRESA == perfil) {
 			
 			Empresa empresa = empresaDAO.findEmpresaByIdUser(idUser);
 			
 			if (empresa == null) {
-				return true;
+				return false;
 			}
 			
 		}
 		
-		return false;
+		return true;
 	}
 	
 	

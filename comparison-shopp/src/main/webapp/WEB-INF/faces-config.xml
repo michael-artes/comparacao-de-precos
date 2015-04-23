@@ -42,6 +42,18 @@
     		<redirect/>
     	</navigation-case>
     	
+    	<navigation-case>
+    		<from-outcome>cadastro-anuncio</from-outcome>
+    		<to-view-id>/pags/anuncio/cadastro-anuncio.xhtml</to-view-id>
+    		<redirect/>
+    	</navigation-case>
+    	
+    	<navigation-case>
+    		<from-outcome>detalhes-anuncio</from-outcome>
+    		<to-view-id>/pags/anuncio/detalhes-anuncio.xhtml</to-view-id>
+    		<redirect/>
+    	</navigation-case>    	
+    	
     </navigation-rule>
     
     

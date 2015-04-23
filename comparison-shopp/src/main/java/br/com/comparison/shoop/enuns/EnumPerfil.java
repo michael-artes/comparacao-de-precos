@@ -6,7 +6,7 @@ public enum EnumPerfil {
 	
 	ADMINISTRADOR(0, "Perfil do tipo usuario administrador"),
 	EMPRESA(1, "Perfil do tipo usuario empresa"),
-	COMUM(2, "Perfil do tipo usuario comum");
+	CONSUMIDOR(2, "Perfil do tipo usuario consumidor");
 	
 	private int id;
 	private String desc;

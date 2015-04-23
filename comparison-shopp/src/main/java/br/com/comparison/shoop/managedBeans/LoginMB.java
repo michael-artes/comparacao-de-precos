@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.comparison.shoop.entity.Usuario;
+import br.com.comparison.shoop.service.EmpresaService;
 import br.com.comparison.shoop.service.UsuarioService;
 
 @Named
@@ -32,6 +33,9 @@ public class LoginMB implements Serializable{
 	
 	@Inject
 	private UsuarioService usuarioService;
+	
+	@Inject
+	private EmpresaService empresaService;
 
 	public boolean isLembrarMe() {
 		return lembrarMe;
@@ -61,11 +65,12 @@ public class LoginMB implements Serializable{
 		
 		if (usuario != null) {
 			
-			usuarioMB.setNome(getLogin());
-			usuarioMB.setLogado(true);
-			usuarioMB.setDataAcesso(new Date());
-			usuarioMB.setIdUser(usuario.getId());
-			usuarioMB.setEnumPerfil(usuario.getPerfil());
+			usuarioMB.getUserSession().setNome(getLogin());
+			usuarioMB.getUserSession().setLogado(true);
+			usuarioMB.getUserSession().setDataAcesso(new Date());
+			usuarioMB.getUserSession().setIdUser(usuario.getId());
+			usuarioMB.getUserSession().setEnumPerfil(usuario.getPerfil());
+			usuarioMB.getUserSession().setEmpresa( empresaService.findEmpresaByIdUser( usuarioMB.getUserSession().getIdUser() ) );
 			
 			context.getExternalContext().redirect("pags/home/home.xhtml");
 		}

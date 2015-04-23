@@ -9,6 +9,6 @@ public interface UsuarioService extends GenericService<Usuario>{
 	
 	public void enviarEmailNewUser(Usuario usuario);
 	
-	public boolean podeCadastrarEmpresa(int idUser, EnumPerfil perfil);
+	public boolean isCadastrouEmpresa(int idUser, EnumPerfil perfil);
 	
 }
