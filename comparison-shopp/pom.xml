@@ -60,6 +60,7 @@
 		    <scope>compile</scope>
 		</dependency>
 		
+		
 		<!-- Weld depende do Jandex -->
 		<dependency>
 			<groupId>org.jboss</groupId>
