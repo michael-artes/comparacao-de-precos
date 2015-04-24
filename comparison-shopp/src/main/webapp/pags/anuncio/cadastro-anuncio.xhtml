@@ -18,6 +18,42 @@
 				
 				
 					<h3> <i class="fa fa-building fa-1x"></i> Cadastrar Anuncio</h3>
+					
+					<h:form id="formCadAnuncio" enctype="multipart/form-data">
+					
+						<p:messages showDetail="true" closable="true"/>
+						<p:separator/>
+					
+						<div class="form-group">
+							<label for="nome">Nome:</label>
+	   						<p:inputText styleClass="form-control" placeholder="informe o nome..." required="true" id="nome" value="#{anuncioMB.anuncio.nome}"/>
+						</div>
+						
+						<div class="form-group">
+							<label for="valor">Valor:</label>
+	   						<p:inputText styleClass="form-control" placeholder="informe o valor..." required="true" id="valor" size="12" value="#{anuncioMB.anuncio.valor}">
+								<f:convertNumber locale="pt_BR" maxFractionDigits="2" minFractionDigits="2" />
+							</p:inputText>
+						</div>
+						
+						<div class="form-group">
+							<label for="imagen">Imagen:</label>
+							<p:fileUpload value="#{anuncioMB.file}" mode="simple" required="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+						</div>						
+						
+						<div class="form-group">
+							<label for="descricao">Descrição:</label> 
+							<h:outputLink value="#" id="infoDescricao"> <p:spacer width="10"/> <i class="fa fa-exclamation"></i></h:outputLink>
+							<p:tooltip value="Por favor informe uma descrição para o anuncio..." for="infoDescricao"/>
+							
+							<p:inputTextarea id="descricao" required="true" styleClass="form-control" value="#{anuncioMB.anuncio.descricao}"/>
+						</div>	
+						
+						<div class="form-group">
+							<h:commandButton value="Salvar Anuncio" styleClass="btn btn-lg btn-primary btn-block" action="#{anuncioMB.salvarAnuncio}"/>
+						</div>																
+					
+					</h:form>
 
 					
 				</div>
