@@ -19,10 +19,12 @@ import br.com.comparison.shoop.service.UsuarioService;
 @RequestScoped
 public class LoginMB implements Serializable{
 
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4505173608545429000L;
+	
 	
 	private boolean lembrarMe;
 	private String login;

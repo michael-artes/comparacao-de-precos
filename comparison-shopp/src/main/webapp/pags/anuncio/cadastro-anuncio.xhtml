@@ -9,6 +9,7 @@
 		
 	<ui:define name="titulo">Home</ui:define>
 	
+	
 	<ui:define name="corpo">
 	
       <div class="jumbotron" style="margin-top: 15px;">
@@ -29,9 +30,17 @@
 	   						<p:inputText styleClass="form-control" placeholder="informe o nome..." required="true" id="nome" value="#{anuncioMB.anuncio.nome}"/>
 						</div>
 						
+						<f:verbatim>
+							<script type="text/javascript">
+								$(function(){
+									$('.maskMoney').mask('000.000.000.000.000,00', {reverse: true});
+								});
+							</script>
+						</f:verbatim>
+						
 						<div class="form-group">
 							<label for="valor">Valor:</label>
-	   						<p:inputText styleClass="form-control" placeholder="informe o valor..." required="true" id="valor" size="12" value="#{anuncioMB.anuncio.valor}">
+	   						<p:inputText styleClass="form-control maskMoney" placeholder="informe o valor..." required="true" id="valor" size="12" value="#{anuncioMB.anuncio.valor}">
 								<f:convertNumber locale="pt_BR" maxFractionDigits="2" minFractionDigits="2" />
 							</p:inputText>
 						</div>

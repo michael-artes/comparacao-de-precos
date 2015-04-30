@@ -12,11 +12,12 @@ import br.com.comparison.shoop.enuns.EnumPerfil;
  * */
 public class UserSession implements Serializable {
 	
+	
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 7979277204002418894L;
 	
 	private Integer idUser;
 	private String nome;

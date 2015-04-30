@@ -12,12 +12,12 @@ import br.com.comparison.shoop.enuns.EnumPerfil;
 @SessionScoped
 public class AutorizacaoMB implements Serializable{
 	
+	
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	
-	
+	private static final long serialVersionUID = -8686283618283568618L;
 	
 	@Inject
 	private UsuarioMB usuarioMB;

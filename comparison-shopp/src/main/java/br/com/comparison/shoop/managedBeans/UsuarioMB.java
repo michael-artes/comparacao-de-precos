@@ -25,11 +25,12 @@ import br.com.comparison.shoop.service.UsuarioService;
 @SessionScoped
 public class UsuarioMB implements Serializable{
 	
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -7187653576021409841L;
+
 	private static final Logger LOGGER = Logger.getLogger(UsuarioMB.class);
 
 	//Atributo para realizar a persistencia
