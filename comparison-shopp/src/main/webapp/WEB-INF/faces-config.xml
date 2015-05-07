@@ -52,7 +52,13 @@
     		<from-outcome>detalhes-anuncio</from-outcome>
     		<to-view-id>/pags/anuncio/detalhes-anuncio.xhtml</to-view-id>
     		<redirect/>
-    	</navigation-case>    	
+    	</navigation-case>   
+
+    	<navigation-case>
+    		<from-outcome>gera-orcamentos</from-outcome>
+    		<to-view-id>/pags/orcamento/gera-orcamento.xhtml</to-view-id>
+    		<redirect/>
+    	</navigation-case>      	 	
     	
     </navigation-rule>
     

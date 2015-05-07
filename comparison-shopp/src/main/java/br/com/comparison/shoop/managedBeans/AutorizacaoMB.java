@@ -2,14 +2,14 @@ package br.com.comparison.shoop.managedBeans;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.comparison.shoop.enuns.EnumPerfil;
 
 @Named
-@SessionScoped
+@RequestScoped
 public class AutorizacaoMB implements Serializable{
 	
 	
@@ -44,20 +44,11 @@ public class AutorizacaoMB implements Serializable{
 		return "home";
 	}
 	
-	public String verificaAutorizacaoEmpresa(){
-		
-		if (usuarioMB.getUserSession().getEnumPerfil() != EnumPerfil.EMPRESA) {
-			return "home";
-		}
-		
-		/*if (usuarioMB.getUserSession().getEmpresa() != null) {
-			return "home";
-		}*/
-		
-		return null;
-	}
-	
 	public boolean isUserConsumidorAutorizado(){
+		
+		if (usuarioMB.getUserSession().getEnumPerfil() == EnumPerfil.CONSUMIDOR)
+			return true;
+		
 		return false;
 	}
 	
@@ -71,6 +62,19 @@ public class AutorizacaoMB implements Serializable{
 			return true;
 		
 		return false;
+	}
+	
+	public String verificaAutorizacaoEmpresa(){
+		
+		if (usuarioMB.getUserSession().getEnumPerfil() != EnumPerfil.EMPRESA) {
+			return "home";
+		}
+		
+		/*if (usuarioMB.getUserSession().getEmpresa() != null) {
+			return "home";
+		}*/
+		
+		return null;
 	}
 
 }

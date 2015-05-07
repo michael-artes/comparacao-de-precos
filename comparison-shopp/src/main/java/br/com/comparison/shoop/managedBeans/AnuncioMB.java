@@ -122,7 +122,7 @@ public class AnuncioMB implements Serializable{
 	public List<Anuncio> getListAnuncios(){
 		
 		if (anuncios == null) {
-			anuncios = anuncioService.list();
+			anuncios = anuncioService.findAnunciosByEmpresa(usuarioMB.getUserSession().getEmpresa().getId());
 		}
 		
 		return anuncios;
