@@ -8,4 +8,5 @@ public interface AnuncioDAO extends GenericDAO<Anuncio> {
 	
 	public List<Anuncio> findAnunciosByEmpresa(int idEmpresa);
 
+	public List<Anuncio> findAnunciosByPesquisa(String nomePesquisa);
 }

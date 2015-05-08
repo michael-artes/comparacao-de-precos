@@ -28,8 +28,28 @@ public class AnuncioDAOImpl extends GenericDAOImpl<Anuncio> implements AnuncioDA
 	public List<Anuncio> findAnunciosByEmpresa(int idEmpresa) {
 		
 		Session session = (Session) entityManager.getDelegate();
+		
 		Criteria crit = session.createCriteria(Anuncio.class, "a");
+		
 		crit.add(Restrictions.eq("a.empresa.id", idEmpresa));
+		
+		return crit.list();
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Anuncio> findAnunciosByPesquisa(String nomePesquisa) {
+		
+		Session session = (Session) entityManager.getDelegate();
+		
+		Criteria crit = session.createCriteria(Anuncio.class, "a");
+		
+		crit.add(Restrictions.like("a.nome", "%"+nomePesquisa+"%"));
+		
+		crit.createAlias("a.empresa", "e");
+		
+		crit.add(Restrictions.eq("e.ativo", true));
 		
 		return crit.list();
 	}

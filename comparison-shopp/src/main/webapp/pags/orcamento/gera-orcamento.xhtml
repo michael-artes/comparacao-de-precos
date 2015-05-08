@@ -13,66 +13,104 @@
 	<ui:define name="corpo">
 	
       <div class="jumbotron" style="margin-top: 15px;">
-	       	<div class="row">
-	       		<h3> <i class="fa fa-building fa-1x"></i> Informe o Nome do Anúncio </h3>
-	       		<p:separator />
-	       		<p:spacer />
-	       		
-				<h:form prependId="false" id="forGeraOrcamento">
-					<div class="col-lg-10">
-						 
-							<div class="form-group">
-								<p:inputText styleClass="form-control input-lg" placeholder="informe o nome..." required="true" id="nomePesquisa"/>
-							</div>						
-							
-					</div>
-					
-					<div class="col-lg-2">
-						<h:commandButton value="Pesquisar" styleClass="btn btn-lg btn-primary btn-block" />
-					</div>
-				</h:form>
-	       	</div>
-	       	
-	       	<p:separator />
-	       	<p:spacer />
-	       	
-			<div class="row">
-			
-				
-				<ui:repeat var="anuncio" value="#{orcamentoMB.listAnuncios}">
-					<div class="col-md-4 well" style="margin-top: 10px;">
-					
-						<h:form id="formAnuncios#{anuncio.id}" prependId="false">
+      
+      		<h:form id="form">
+      		
+		       	<div class="row">
+		       		<h3> <i class="fa fa-building fa-1x"></i> Informe o Nome do Anúncio </h3>
+		       		<p:separator />
+		       		<p:spacer />
+		       		
+						<div class="col-lg-10">
+							 
+								<div class="form-group">
+									<p:inputText styleClass="form-control input-lg" placeholder="informe o nome..." required="true" id="nomePesquisa" value="#{orcamentoMB.nomePesquisa}"/>
+								</div>						
+								
+						</div>
 						
-							<p:graphicImage value="#{imagemMB.anuncioImagem}" width="283" height="140" styleClass="img-retangle" >
+						<div class="col-lg-2">
+							<h:commandButton value="Pesquisar" styleClass="btn btn-lg btn-primary btn-block" actionListener="#{orcamentoMB.pesquisarAnuncios}">
+								<f:ajax render="anunciosList nomePesquisa" execute="@form"/>
+							</h:commandButton>
+						</div>
+		       	</div>
+		       	
+		       	<p:separator />
+		       	<p:spacer />	      
+      
+      		
+			    <p:dataGrid var="anuncio" value="#{orcamentoMB.anunciosByPesquisa}" columns="3" layout="grid" rows="10" paginator="true" id="anunciosList"
+			        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			        rowsPerPageTemplate="5,10,15">
+			 
+			        <f:facet name="header">
+			            Listagem Anuncios
+			        </f:facet>
+			        
+			 
+			        <p:panel header="##{anuncio.id}">
+			            <h:panelGrid columns="1" style="width:100%" id="selectedAnuncio">
+			            
+							<p:graphicImage value="#{imagemMB.anuncioImagem}" width="100%" height="140" styleClass="img-retangle" >
 				        		<f:param name="idAnuncio" value="#{anuncio.id}"/>
 				        	</p:graphicImage>
 				        	
-				        	<h4> <h:outputText value="#{anuncio.nome}" style="font-weight: bold;"/> </h4>
-				        	<p:separator />
-				        	
-				        	<h:outputText value="#{anuncio.descricao}"/>
-				        	
 				        	<p:spacer />
-				        	<br />
-			        		<label for="valorAnuncio">Valor: </label>
-				        	<h:outputText value="#{anuncio.valor}" id="valorAnuncio" style="font-weight: bold; color: red;"> 
-				            	<f:convertNumber locale="pt_BR" maxFractionDigits="2" minFractionDigits="2" />
-				            </h:outputText>
 				        	
-				        	<p:separator />
-				        	<h:commandButton styleClass="btn btn-sm btn-success" value="Adicionar" actionListener="#{orcamentoMB.adicionarAnuncio}">
+			        	      <div class="alert alert-info" style="text-align: center;">
+						        <strong> #{anuncio.nome} </strong>
+						      </div>
+				        	
+			                <p:commandButton update=":form:anuncioDialog" oncomplete="PF('anuncioDialog').show()" title="Detalhes Anuncio" value="Visualizar Anuncio" styleClass="btn btn-sm">
+			                    <f:setPropertyActionListener value="#{anuncio}" target="#{orcamentoMB.anuncioSelected}" />
+			                </p:commandButton>
+
+							<p:spacer />
+				        	
+				        	<h:commandButton styleClass="btn btn-sm btn-primary" value="Adicionar" actionListener="#{orcamentoMB.adicionarAnuncio}">
 				        		<f:ajax render=":labelCountAnuncios" execute="@form"/>
 				        		<f:param name="idAnuncio" value="#{anuncio.id}"/>
-				        	</h:commandButton> 
-				        	
-						</h:form>
-						
-						
-					</div>
-				</ui:repeat>
-			
-			</div>	       	
+				        	</h:commandButton> 	
+				        		
+				        		
+			                
+			            </h:panelGrid>
+			        </p:panel>
+			 
+			    </p:dataGrid>
+			    
+			 
+			    <p:dialog header="Detalhes Anuncio" widgetVar="anuncioDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+			        <p:outputPanel id="anuncioDialog" style="text-align:center;">
+			            <p:panelGrid  columns="2" rendered="#{not empty orcamentoMB.anuncioSelected}">
+				        			            
+			                <f:facet name="header">
+								<p:graphicImage value="#{imagemMB.anuncioImagem}" width="100%" height="100%">
+					        		<f:param name="idAnuncio" value="#{orcamentoMB.anuncioSelected.id}"/>
+					        	</p:graphicImage>
+			                </f:facet>
+			 
+			                <h:outputText value="Id:" />
+			                <h:outputText value="#{orcamentoMB.anuncioSelected.id}" />
+			 
+			                <h:outputText value="Nome" />
+			                <h:outputText value="#{orcamentoMB.anuncioSelected.nome}" />
+			 
+			                <h:outputText value="Descrição:" />
+			                <h:outputText value="#{orcamentoMB.anuncioSelected.descricao}" />
+			 
+			                <h:outputText value="Valor" />
+				        	<h:outputText value="#{orcamentoMB.anuncioSelected.valor}" id="valorAnuncio" style="font-weight: bold; color: red;"> 
+				            	<f:convertNumber locale="pt_BR" maxFractionDigits="2" minFractionDigits="2" />
+				            </h:outputText>		                
+			                
+			            </p:panelGrid>
+			        </p:outputPanel>
+			    </p:dialog>   
+			       		
+      		</h:form>
+      
         
       </div>
 		

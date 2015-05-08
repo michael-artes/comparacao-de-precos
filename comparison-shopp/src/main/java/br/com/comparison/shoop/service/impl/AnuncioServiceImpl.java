@@ -53,4 +53,9 @@ public class AnuncioServiceImpl implements AnuncioService, Serializable {
 		return anuncioDAO.findAnunciosByEmpresa(idEmpresa);
 	}
 
+	@Override
+	public List<Anuncio> findAnunciosByPesquisa(String nomePesquisa) {
+		return anuncioDAO.findAnunciosByPesquisa(nomePesquisa);
+	}
+
 }
