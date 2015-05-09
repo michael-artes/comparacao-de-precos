@@ -47,6 +47,10 @@ public class ItemOrcamento {
 	@Column(name="imagem", nullable = true)
 	private byte[] imagem;
 	
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_empresa", nullable = false)
+	private Empresa empresa;
 
 	public Integer getId() {
 		return id;
@@ -102,6 +106,14 @@ public class ItemOrcamento {
 
 	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 	@Override

@@ -55,10 +55,16 @@
     	</navigation-case>   
 
     	<navigation-case>
-    		<from-outcome>gera-orcamentos</from-outcome>
+    		<from-outcome>cria-orcamentos</from-outcome>
     		<to-view-id>/pags/orcamento/gera-orcamento.xhtml</to-view-id>
     		<redirect/>
-    	</navigation-case>      	 	
+    	</navigation-case>      	
+    	
+    	<navigation-case>
+    		<from-outcome>gerar-orcamento</from-outcome>
+    		<to-view-id>/pags/orcamento/orcamento.xhtml</to-view-id>
+    		<redirect/>
+    	</navigation-case>
     	
     </navigation-rule>
     

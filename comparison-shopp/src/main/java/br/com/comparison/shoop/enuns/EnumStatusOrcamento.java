@@ -5,8 +5,7 @@ import org.jboss.weld.exceptions.IllegalArgumentException;
 public enum EnumStatusOrcamento {
 	
 	ABERTO(0, "Status inicial do orçamento"),
-	SALVO(1, "Quando o orçamento é salvo pelo usuário"),
-	GERADO(2, "Status quando o orçamento é gerado um pdf ou impresso pelo usuário");
+	SALVO(1, "Quando o orçamento é salvo pelo usuário");
 	
 	private int id;
 	private String desc;

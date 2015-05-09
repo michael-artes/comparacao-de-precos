@@ -3,6 +3,8 @@ package br.com.comparison.shoop.pdf;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import br.com.comparison.shoop.entity.Orcamento;
+
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.PdfWriter;
@@ -14,7 +16,7 @@ public abstract class PDFBuild {
 	public PdfWriter instance;
 	
 	
-	public abstract void buildCorpo() throws DocumentException;
+	public abstract void buildCorpo(Orcamento orcamento) throws DocumentException;
 	
 	
 	

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:stella="http://stella.caelum.com.br/faces2">
+		
+	<ui:define name="titulo">Gerar Orçamentos</ui:define>
+	
+	
+	<ui:define name="corpo">
+	
+      <div class="jumbotron" style="margin-top: 15px;">
+		<h3> <i class="fa fa-building fa-1x"></i> ##{orcamentoMB.orcamento.id} Orçamento! </h3>
+		
+      	<div class="row">
+      		<div class="col-lg-12">
+      		
+	               <div class="table-responsive">
+	                   <table class="table table-hover table-striped">
+	                       <thead>
+	                           <tr>
+	                               <th>Nome</th>
+	                               <th>Descrição</th>
+	                               <th>Valor</th>
+	                           </tr>
+	                       </thead>
+	                       <tbody>
+	                       
+	                       		<ui:repeat var="item" value="#{orcamentoMB.itemOrcamentos}">
+	                       			<tr>
+	                       				<td> <h:outputText value="#{item.nome}"/> </td>
+	                       				<td> <h:outputText value="#{item.descricao}"/> </td>
+	                       				<td> 
+								        	<h:outputText value="#{item.valor}"> 
+								            	<f:convertNumber locale="pt_BR" maxFractionDigits="2" minFractionDigits="2" />
+								            </h:outputText>		                       				
+	                       				</td>
+	                       			</tr>
+	                       		</ui:repeat>
+	                       		
+	                       </tbody>
+	                   </table>
+	               </div>   
+	               
+	               <p:separator />
+	               <p:spacer />   		
+	               
+	               
+	               <h:form>
+	               		<i class="fa fa-cloud-download"></i> <p:spacer width="10px"/>
+	               		<p:commandLink value="Gerar PDF" ajax="false" style="text-decoration: none; color: black;">
+	               			<p:fileDownload value="#{orcamentoMB.fileOrcamento}" />
+	               		</p:commandLink>
+	               </h:form>
+      		
+      		</div>
+      	</div>
+		
+		
+      </div>
+		
+	</ui:define>		
+
+
+</ui:composition>
