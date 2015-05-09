@@ -1,5 +1,6 @@
 package br.com.comparison.shoop.managedBeans;
 
+import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -13,13 +14,20 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.jboss.logging.Logger;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+
 import br.com.comparison.shoop.entity.Anuncio;
+import br.com.comparison.shoop.pdf.PDFBuild;
+import br.com.comparison.shoop.pdf.PDFBuildCorpo;
 import br.com.comparison.shoop.service.AnuncioService;
 
 @Named
 @SessionScoped
 public class OrcamentoMB implements Serializable {
 	
+	private static Logger LOGGER = Logger.getLogger(OrcamentoMB.class);
 	
 	/**
 	 * 
@@ -97,6 +105,36 @@ public class OrcamentoMB implements Serializable {
 		anunciosByPesquisa.addAll(listAnuncios);
 		
 		this.nomePesquisa = ""; //Limpa o campo
+	}
+	
+	
+	
+	public StreamedContent gerarPDFOrcamentoStrem(){
+		
+		try {
+			
+			
+			PDFBuild buildCorpo = new PDFBuildCorpo();
+			
+			buildCorpo.openDocument();
+			
+			buildCorpo.buildCorpo();
+			
+			buildCorpo.closeDocument();
+			
+			
+			return new DefaultStreamedContent( new ByteArrayInputStream( buildCorpo.stream.toByteArray() ), "application/pdf", "teste.pdf" );
+			
+			
+		} catch (Exception e) {
+			LOGGER.error("Não foi possível gerar o pdf", e);
+		}
+		
+		return new DefaultStreamedContent();
+	}
+	
+	public StreamedContent getFileOrcamento(){
+		return gerarPDFOrcamentoStrem();
 	}
 	
 	

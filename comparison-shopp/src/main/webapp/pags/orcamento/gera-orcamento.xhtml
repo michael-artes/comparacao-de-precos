@@ -13,33 +13,32 @@
 	<ui:define name="corpo">
 	
       <div class="jumbotron" style="margin-top: 15px;">
-      
-      		<h:form id="form">
+      			
+      			
+      		<h:form prependId="false">
       		
 		       	<div class="row">
 		       		<h3> <i class="fa fa-building fa-1x"></i> Informe o Nome do Anúncio </h3>
 		       		<p:separator />
 		       		<p:spacer />
 		       		
-						<div class="col-lg-10">
-							 
-								<div class="form-group">
-									<p:inputText styleClass="form-control input-lg" placeholder="informe o nome..." required="true" id="nomePesquisa" value="#{orcamentoMB.nomePesquisa}"/>
-								</div>						
-								
-						</div>
+		       			<div class="form-group">
+							<p:inputText styleClass="form-control input-lg" placeholder="informe o nome..." required="true" id="nomePesquisa" value="#{orcamentoMB.nomePesquisa}"/>
+		       			</div>
 						
-						<div class="col-lg-2">
+						<div class="form-group">
 							<h:commandButton value="Pesquisar" styleClass="btn btn-lg btn-primary btn-block" actionListener="#{orcamentoMB.pesquisarAnuncios}">
-								<f:ajax render="anunciosList nomePesquisa" execute="@form"/>
+								<f:ajax render=":form:anunciosList nomePesquisa" execute="@form"/>
 							</h:commandButton>
 						</div>
 		       	</div>
+      		</h:form>
 		       	
 		       	<p:separator />
 		       	<p:spacer />	      
       
       		
+      		<h:form id="form">
 			    <p:dataGrid var="anuncio" value="#{orcamentoMB.anunciosByPesquisa}" columns="3" layout="grid" rows="10" paginator="true" id="anunciosList"
 			        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 			        rowsPerPageTemplate="5,10,15">
@@ -49,7 +48,7 @@
 			        </f:facet>
 			        
 			 
-			        <p:panel header="##{anuncio.id}">
+			        <p:panel header="##{anuncio.id} - #{anuncio.empresa.nomeFantasia}" style="text-align: center;">
 			            <h:panelGrid columns="1" style="width:100%" id="selectedAnuncio">
 			            
 							<p:graphicImage value="#{imagemMB.anuncioImagem}" width="100%" height="140" styleClass="img-retangle" >
@@ -58,11 +57,11 @@
 				        	
 				        	<p:spacer />
 				        	
-			        	      <div class="alert alert-info" style="text-align: center;">
+			        	      <div class="alert alert-info">
 						        <strong> #{anuncio.nome} </strong>
 						      </div>
 				        	
-			                <p:commandButton update=":form:anuncioDialog" oncomplete="PF('anuncioDialog').show()" title="Detalhes Anuncio" value="Visualizar Anuncio" styleClass="btn btn-sm">
+			                <p:commandButton update=":form:anuncioDialog" oncomplete="PF('anuncioDialog').show()" title="Detalhes Anuncio" value="Visualizar Anuncio" styleClass="btn btn-sm" >
 			                    <f:setPropertyActionListener value="#{anuncio}" target="#{orcamentoMB.anuncioSelected}" />
 			                </p:commandButton>
 
@@ -73,7 +72,6 @@
 				        		<f:param name="idAnuncio" value="#{anuncio.id}"/>
 				        	</h:commandButton> 	
 				        		
-				        		
 			                
 			            </h:panelGrid>
 			        </p:panel>
@@ -81,7 +79,7 @@
 			    </p:dataGrid>
 			    
 			 
-			    <p:dialog header="Detalhes Anuncio" widgetVar="anuncioDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+			    <p:dialog header="Detalhes Anuncio" widgetVar="anuncioDialog" modal="true" height="350px" position="center">
 			        <p:outputPanel id="anuncioDialog" style="text-align:center;">
 			            <p:panelGrid  columns="2" rendered="#{not empty orcamentoMB.anuncioSelected}">
 				        			            
