@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import br.com.comparison.shoop.entity.Orcamento;
+import br.com.comparison.shoop.service.OrcamentoService;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -16,7 +17,7 @@ public abstract class PDFBuild {
 	public PdfWriter instance;
 	
 	
-	public abstract void buildCorpo(Orcamento orcamento) throws DocumentException;
+	public abstract void buildCorpo(Orcamento orcamento, OrcamentoService orcamentoService) throws DocumentException;
 	
 	
 	

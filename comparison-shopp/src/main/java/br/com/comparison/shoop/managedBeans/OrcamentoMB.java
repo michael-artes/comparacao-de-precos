@@ -204,12 +204,12 @@ public class OrcamentoMB implements Serializable {
 			
 			buildCorpo.openDocument();
 			
-			buildCorpo.buildCorpo(orcamento);
+			buildCorpo.buildCorpo(orcamento, orcamentoService);
 			
 			buildCorpo.closeDocument();
 			
 			
-			return new DefaultStreamedContent( new ByteArrayInputStream( buildCorpo.stream.toByteArray() ), "application/pdf", "teste.pdf" );
+			return new DefaultStreamedContent( new ByteArrayInputStream( buildCorpo.stream.toByteArray() ), "application/pdf", "Orçamento-" + orcamento.getId() + ".pdf" );
 			
 			
 		} catch (Exception e) {
