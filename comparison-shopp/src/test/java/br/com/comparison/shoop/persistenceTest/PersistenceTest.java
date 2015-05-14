@@ -8,6 +8,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,6 +22,7 @@ import br.com.comparison.shoop.dao.UsuarioDAO;
 import br.com.comparison.shoop.dao.impl.GenericDAOImpl;
 import br.com.comparison.shoop.dao.impl.UsuarioDAOImpl;
 import br.com.comparison.shoop.entity.Anuncio;
+import br.com.comparison.shoop.entity.Empresa;
 import br.com.comparison.shoop.entity.ItemOrcamento;
 import br.com.comparison.shoop.entity.Orcamento;
 import br.com.comparison.shoop.entity.Usuario;
@@ -215,6 +222,25 @@ public class PersistenceTest {
 		for (Usuario usuario : list) {
 			System.out.println(usuario.toString());
 		}*/
+		
+	}
+	
+	@Test
+	public void testListEmpresas(){
+		/*EntityManager em = getEntityManager();
+		
+		Session session = (Session) em.getDelegate();
+		Criteria crit = session.createCriteria(ItemOrcamento.class, "item");
+		crit.add(Restrictions.eq("item.orcamento.id", 12));
+		
+		crit.setProjection(Projections.distinct(Projections.property("item.empresa")));
+		
+		List<Empresa> list = crit.list();
+		
+		for (Empresa empresa : list) {
+			System.out.println(empresa.getId());
+		}*/
+
 		
 	}
 	

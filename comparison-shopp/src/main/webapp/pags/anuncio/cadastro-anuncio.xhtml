@@ -63,6 +63,29 @@
 						</div>																
 					
 					</h:form>
+					
+					<p:separator/>
+					<p:separator/>
+					<p:spacer/>
+					
+					<h:form id="importadorAnuncio" enctype="multipart/form-data">
+					
+						<p:messages showDetail="true" closable="true" id="mensagensUpload"/>
+					
+	               		<i class="fa fa-cloud-download"></i> <p:spacer width="10px"/>
+                  		<p:commandLink value="Dowload Exemplo" ajax="false" style="text-decoration: none; color: black;">
+                  			<p:fileDownload value="#{anuncioMB.downloadExemploImport}"/>
+                  		</p:commandLink>
+					
+						<div class="form-group">
+							<label for="importAnuncio">Importar Anuncio:</label>
+							
+							<p:fileUpload mode="advanced" fileUploadListener="#{anuncioMB.handleUploadAnuncio}"
+								id="importAnuncio" required="true" sizeLimit="100000"
+								update="mensagensUpload" dragDropSupport="false" />
+						</div>						
+					
+					</h:form>					
 
 					
 				</div>

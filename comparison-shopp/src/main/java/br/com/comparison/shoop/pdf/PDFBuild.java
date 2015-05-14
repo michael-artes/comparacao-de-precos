@@ -2,9 +2,10 @@ package br.com.comparison.shoop.pdf;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 
+import br.com.comparison.shoop.entity.Empresa;
 import br.com.comparison.shoop.entity.Orcamento;
-import br.com.comparison.shoop.service.OrcamentoService;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -17,7 +18,7 @@ public abstract class PDFBuild {
 	public PdfWriter instance;
 	
 	
-	public abstract void buildCorpo(Orcamento orcamento, OrcamentoService orcamentoService) throws DocumentException;
+	public abstract void buildCorpo(Orcamento orcamento, List<Empresa> list) throws DocumentException;
 	
 	
 	

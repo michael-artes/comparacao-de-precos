@@ -15,6 +15,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -197,21 +198,10 @@ public class OrcamentoMB implements Serializable {
 	
 	public StreamedContent gerarPDFOrcamentoStrem(){
 		
+		
+		
 		try {
-			
-			
-			PDFBuild buildCorpo = new PDFBuildCorpo();
-			
-			buildCorpo.openDocument();
-			
-			buildCorpo.buildCorpo(orcamento, orcamentoService);
-			
-			buildCorpo.closeDocument();
-			
-			
-			return new DefaultStreamedContent( new ByteArrayInputStream( buildCorpo.stream.toByteArray() ), "application/pdf", "Orçamento-" + orcamento.getId() + ".pdf" );
-			
-			
+			return orcamentoService.gerarPDFOrcamentoStrem(orcamento.getId());
 		} catch (Exception e) {
 			LOGGER.error("Não foi possível gerar o pdf", e);
 		}

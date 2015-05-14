@@ -1,7 +1,6 @@
 package br.com.comparison.shoop.entity;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -127,7 +126,6 @@ public class Anuncio {
 				+ ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((empresa == null) ? 0 : empresa.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + Arrays.hashCode(imagem);
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((valor == null) ? 0 : valor.hashCode());
 		return result;
@@ -167,8 +165,6 @@ public class Anuncio {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (!Arrays.equals(imagem, other.imagem))
-			return false;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
@@ -186,9 +182,8 @@ public class Anuncio {
 	public String toString() {
 		return "Anuncio [id=" + id + ", nome=" + nome + ", descricao="
 				+ descricao + ", valor=" + valor + ", dataCadastro="
-				+ dataCadastro + ", dataAlteracao=" + dataAlteracao
-				+ ", imagem=" + Arrays.toString(imagem) + ", empresa="
-				+ empresa + "]";
+				+ dataCadastro + ", dataAlteracao=" + dataAlteracao 
+				+ ", empresa=" + empresa + "]";
 	}
 	
 }
