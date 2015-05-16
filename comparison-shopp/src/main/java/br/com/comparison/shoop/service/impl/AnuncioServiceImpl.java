@@ -124,16 +124,23 @@ public class AnuncioServiceImpl implements AnuncioService, Serializable {
 				
 				if (i == 3) {
 					i = 0;
-					
-					String val = cell.getStringCellValue().trim();
 					double d = 0;
 					
-					try {
-						d = Double.parseDouble(val);
-					} catch (NumberFormatException e) {
-						Locale locale = new Locale("pt", "BR");
-						d = NumberFormat.getInstance(locale).parse(val).doubleValue();
+					if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+						d = cell.getNumericCellValue();
+						
+					} else {
+						
+						String val = cell.getStringCellValue().trim();
+						
+						try {
+							d = Double.parseDouble(val);
+						} catch (NumberFormatException e) {
+							Locale locale = new Locale("pt", "BR");
+							d = NumberFormat.getInstance(locale).parse(val).doubleValue();
+						}
 					}
+					
 					
 					BigDecimal decimal = new BigDecimal(d);
 					anuncio.setValor(decimal);

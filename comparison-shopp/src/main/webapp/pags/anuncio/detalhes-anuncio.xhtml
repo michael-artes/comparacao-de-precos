@@ -27,9 +27,10 @@
 					    			rowsPerPageTemplate="5,10,15" paginatorPosition="bottom" styleClass="table table-hover">
 	
 					        <p:column headerText="Imagem" style="text-align: center;">
-					        	<p:graphicImage height="100" width="160" value="#{imagemMB.anuncioImagem}">
+					        	<p:graphicImage height="100" width="160" value="#{imagemMB.anuncioImagem}" rendered="#{not empty anuncio.imagem}">
 					        		<f:param name="idAnuncio" value="#{anuncio.id}"/>
 					        	</p:graphicImage>
+					        	<p:graphicImage height="100" width="160" name="imagens/imagem-nao-disponivel.jpg" rendered="#{empty anuncio.imagem}" />
 					        </p:column>
 					        
 					        <p:column headerText="Id" sortBy="#{anuncio.id}" width="60" style="text-align: center;">

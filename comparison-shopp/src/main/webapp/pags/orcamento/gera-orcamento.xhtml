@@ -51,9 +51,11 @@
 			        <p:panel header="##{anuncio.id} - #{anuncio.empresa.nomeFantasia}" style="text-align: center;">
 			            <h:panelGrid columns="1" style="width:100%" id="selectedAnuncio">
 			            
-							<p:graphicImage value="#{imagemMB.anuncioImagem}" width="100%" height="140" styleClass="img-retangle" >
+							<p:graphicImage value="#{imagemMB.anuncioImagem}" width="100%" height="140" styleClass="img-retangle" rendered="#{not empty anuncio.imagem}">
 				        		<f:param name="idAnuncio" value="#{anuncio.id}"/>
 				        	</p:graphicImage>
+				        	
+				        	<p:graphicImage width="100%" height="140" name="imagens/imagem-nao-disponivel.jpg" rendered="#{empty anuncio.imagem}" />
 				        	
 				        	<p:spacer />
 				        	
@@ -68,7 +70,7 @@
 							<p:spacer />
 				        	
 				        	<h:commandButton styleClass="btn btn-sm btn-primary" value="Adicionar" actionListener="#{orcamentoMB.adicionarAnuncio}">
-				        		<f:ajax render=":labelCountAnuncios" execute="@form"/>
+				        		<f:ajax render=":formMenu:labelCountAnuncios" execute="@form"/>
 				        		<f:param name="idAnuncio" value="#{anuncio.id}"/>
 				        	</h:commandButton> 	
 				        		
@@ -79,14 +81,15 @@
 			    </p:dataGrid>
 			    
 			 
-			    <p:dialog header="Detalhes Anuncio" widgetVar="anuncioDialog" modal="true" height="350px" position="center">
+			    <p:dialog header="Detalhes Anuncio" widgetVar="anuncioDialog" modal="true" height="350px" resizable="false">
 			        <p:outputPanel id="anuncioDialog" style="text-align:center;">
 			            <p:panelGrid  columns="2" rendered="#{not empty orcamentoMB.anuncioSelected}">
 				        			            
 			                <f:facet name="header">
-								<p:graphicImage value="#{imagemMB.anuncioImagem}" width="100%" height="100%">
+								<p:graphicImage value="#{imagemMB.anuncioImagem}" width="100%" height="100%" rendered="#{not empty orcamentoMB.anuncioSelected.imagem}">
 					        		<f:param name="idAnuncio" value="#{orcamentoMB.anuncioSelected.id}"/>
 					        	</p:graphicImage>
+					        	<p:graphicImage width="100%" height="100%" name="imagens/imagem-nao-disponivel.jpg" rendered="#{empty orcamentoMB.anuncioSelected.imagem}" />
 			                </f:facet>
 			 
 			                <h:outputText value="Id:" />

@@ -115,7 +115,13 @@ public class AnuncioMB implements Serializable{
 			throw new IllegalArgumentException("Nao localizou este anuncio");
 		}
 		
-		anuncioSelected.setImagem(IOUtils.toByteArray(file.getInputstream()));
+		byte[] imagem = IOUtils.toByteArray(file.getInputstream());
+		
+		if (imagem.length == 0 && anuncioSelected.getImagem() != null) {
+			imagem = anuncioSelected.getImagem();
+		}
+		
+		anuncioSelected.setImagem(imagem.length == 0 ? null : imagem);
 		anuncioService.update(anuncioSelected);
 		
 		return "detalhes-anuncio?faces-redirect=true";
@@ -148,6 +154,7 @@ public class AnuncioMB implements Serializable{
 	
 	
 	public void handleUploadAnuncio(FileUploadEvent event) throws IOException{
+		FacesContext context = FacesContext.getCurrentInstance();
 		List<Anuncio> anuncios = new ArrayList<Anuncio>(0);
 		
 		try {
@@ -156,11 +163,12 @@ public class AnuncioMB implements Serializable{
 			for (Anuncio anuncio : anuncios) {
 				anuncioService.salvar(anuncio);
 			}
+			
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso: ", "Arquivo importado com sucesso!"));
 		} catch (Exception e) {
 			LOGGER.error("Nao foi possivel realizar o upload do arquivo");
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: ", "Não foi possível importar, verifique o arquivo!"));
 		}
 		
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso: ", "Arquivo importado com sucesso!"));
 	}
 }

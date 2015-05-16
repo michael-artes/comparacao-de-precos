@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14287582153000" configfile="/comparison-shopp/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="178" id="pf14287647516770" outlinks="pf14287647516781" path="*"/>
-  <nodes xsi:type="pageflow:PFPage" name="pags/login.xhtml" x="338" y="178" id="pf14287647516782" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14287647516781" path="/pags/login.xhtml"/>
-  <links id="pf14287647516781" target="pf14287647516782" source="pf14287647516770" outcome="login"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="1522" id="pf14287647516770" outlinks="pf14317892072850 pf14317892072851 pf14317892072852 pf14317892072853 pf14317892072854 pf14317892072855 pf14317892072856 pf14317892072857" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="pags/login.xhtml" x="122" y="2386" id="pf14287647516782" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" path="/pags/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="338" y="178" id="pf14317892072858" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14317892072850" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pags/home/home.xhtml" x="338" y="562" id="pf14317892072859" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf14317892072851" path="/pags/home/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pags/empresa/cadastro-empresa.xhtml" x="338" y="946" id="pf143178920728510" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf14317892072852" path="/pags/empresa/cadastro-empresa.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pags/empresa/detalhes-empresa.xhtml" x="338" y="1330" id="pf143178920728511" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf14317892072853" path="/pags/empresa/detalhes-empresa.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pags/anuncio/cadastro-anuncio.xhtml" x="338" y="1714" id="pf143178920728512" referenceLink="//@navigationRule.0/@navigationCase.4/@toViewId|" inlinks="pf14317892072854" path="/pags/anuncio/cadastro-anuncio.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pags/anuncio/detalhes-anuncio.xhtml" x="338" y="2098" id="pf143178920728613" referenceLink="//@navigationRule.0/@navigationCase.5/@toViewId|" inlinks="pf14317892072855" path="/pags/anuncio/detalhes-anuncio.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pags/orcamento/gera-orcamento.xhtml" x="338" y="2482" id="pf143178920728614" referenceLink="//@navigationRule.0/@navigationCase.6/@toViewId|" inlinks="pf14317892072856" path="/pags/orcamento/gera-orcamento.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pags/orcamento/orcamento.xhtml" x="338" y="2866" id="pf143178920728615" referenceLink="//@navigationRule.0/@navigationCase.7/@toViewId|" inlinks="pf14317892072857" path="/pags/orcamento/orcamento.xhtml"/>
+  <links id="pf14317892072850" target="pf14317892072858" source="pf14287647516770" outcome="login" redirect="true"/>
+  <links id="pf14317892072851" target="pf14317892072859" source="pf14287647516770" outcome="home" redirect="true"/>
+  <links id="pf14317892072852" target="pf143178920728510" source="pf14287647516770" outcome="cadastro-empresa" redirect="true"/>
+  <links id="pf14317892072853" target="pf143178920728511" source="pf14287647516770" outcome="detalhes-empresa" redirect="true"/>
+  <links id="pf14317892072854" target="pf143178920728512" source="pf14287647516770" outcome="cadastro-anuncio" redirect="true"/>
+  <links id="pf14317892072855" target="pf143178920728613" source="pf14287647516770" outcome="detalhes-anuncio" redirect="true"/>
+  <links id="pf14317892072856" target="pf143178920728614" source="pf14287647516770" outcome="cria-orcamentos" redirect="true"/>
+  <links id="pf14317892072857" target="pf143178920728615" source="pf14287647516770" outcome="gerar-orcamento" redirect="true"/>
 </pageflow:Pageflow>

@@ -26,162 +26,160 @@
 		<p:graphicImage name="/imagens/ajaxloadingbar.gif" />
 	</p:dialog>
    
-    <div id="wrapper">
-
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="z-index: 1000">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">Comparison-Shoop</a>
-            </div>
-            <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu message-dropdown">
-                        <li class="message-preview">
-                        
-                        	<p:link href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <!-- <img class="media-object" src="http://placehold.it/50x50" alt=""> -->
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                        	</p:link>
-                        </li>
-                        <li class="message-footer">
-                            <p:link href="#">Read All New Messages</p:link>
-                        </li>
-                    </ul>
-                </li>
-                
-	                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    	<i class="fa fa-shopping-cart"></i> <span class="badge"> <h:outputText value="#{orcamentoMB.countAnunciosEscolhidos}" id="labelCountAnuncios"/> </span> <b class="caret"></b>
-                   	</a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#">Orçamentos</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                        	<h:form>
-    							<p:growl id="grow1" showDetail="true" />                  	
-	                        	<p:commandLink value="Gerar Orçamento" action="#{orcamentoMB.geraOrcamento}" update="grow1" style="text-decoration: none; color: black; margin-left: 15px;"/>
-                        	</h:form>
-                        </li>
-                    </ul>
-                </li>
-                
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> #{usuarioMB.userSession.nome} <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                        	<h:form>
-	                        	<h:commandLink action="#{loginMB.logout}" style="text-decoration: none; color: black; margin-left: 15px;">
-	                        		<i class="fa fa-fw fa-power-off"></i> Log Out
-	                        	</h:commandLink>
-                        	</h:form>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <li class="active">
-                        <p:commandLink action="home">
-                        	<i class="fa fa-fw fa-home"></i> Home
-                        </p:commandLink>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#menuCliente"><i class="fa fa-fw fa-bar-chart-o"></i> Cliente <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="menuCliente" class="collapse">
-                            <li>
-                                <p:link outcome="cadastro-empresa" rendered="#{!autorizacaoMB.cadastrouEmpresa and autorizacaoMB.userEmpresaAutorizado}">
-		                        	<i class="fa fa-fw fa-dashboard"></i> Cadastrar Empresa
-		                        </p:link>
-                            </li>
-                            <li>
-                            	<p:link outcome="detalhes-empresa" rendered="#{autorizacaoMB.userEmpresaAutorizado}">
-                                	<i class="fa fa-align-left"></i> Detalhes da Empresa
-		                        </p:link>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#menuAnuncio"><i class="fa fa-fw fa-bar-chart-o"></i> Anuncio <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="menuAnuncio" class="collapse">
-                            <li>
-                                <p:link outcome="cadastro-anuncio" rendered="#{autorizacaoMB.userEmpresaAutorizado}">
-                               		<i class="fa fa-fw fa-dashboard"></i> Cadastrar Anuncios
-                               	</p:link>
-                            </li>
-                            <li>
-                                <p:link outcome="detalhes-anuncio" rendered="#{autorizacaoMB.userEmpresaAutorizado}">
-                               		<i class="fa fa-align-left"></i> Visualizar Anuncios
-                                </p:link>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#menuOrcamento"><i class="fa fa-fw fa-bar-chart-o"></i> Orçamento <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="menuOrcamento" class="collapse">
-                            <li>
-                                <p:link outcome="cria-orcamentos" rendered="#{autorizacaoMB.userConsumidorAutorizado}">
-                               		<i class="fa fa-fw fa-dashboard"></i> Gerar Orçamentos
-                               	</p:link>
-                            </li>
-                        </ul>
-                    </li>                    
-                    
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
-
-        <div id="page-wrapper">
-
-            <div class="container-fluid">
-				
-				<div id="conteudoCorpo">
-					<ui:insert name="corpo"/>
-				</div>
-
-            </div>
-            <!-- /.container-fluid -->
-
-        </div>
-        <!-- /#page-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->   
-   
-	    
+		   	
+		    <div id="wrapper">
+		
+			   <h:form id="formMenu">
+				<p:growl id="grow1" showDetail="true" />
+		        <!-- Navigation -->
+		        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="z-index: 1000">
+		            <!-- Brand and toggle get grouped for better mobile display -->
+		            <div class="navbar-header">
+		                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+		                    <span class="sr-only">Toggle navigation</span>
+		                    <span class="icon-bar"></span>
+		                    <span class="icon-bar"></span>
+		                    <span class="icon-bar"></span>
+		                </button>
+		                <a class="navbar-brand" href="index.html">Comparison-Shoop</a>
+		            </div>
+		            <!-- Top Menu Items -->
+		            <ul class="nav navbar-right top-nav">
+		                <li class="dropdown">
+		                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+		                    <ul class="dropdown-menu message-dropdown">
+		                        <li class="message-preview">
+		                        
+		                        	<p:link href="#">
+		                                <div class="media">
+		                                    <span class="pull-left">
+		                                        <!-- <img class="media-object" src="http://placehold.it/50x50" alt=""> -->
+		                                    </span>
+		                                    <div class="media-body">
+		                                        <h5 class="media-heading"><strong>John Smith</strong>
+		                                        </h5>
+		                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
+		                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+		                                    </div>
+		                                </div>
+		                        	</p:link>
+		                        </li>
+		                        <li class="message-footer">
+		                            <p:link href="#">Read All New Messages</p:link>
+		                        </li>
+		                    </ul>
+		                </li>
+		                
+			                
+		                <li class="dropdown">
+		                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                    	<i class="fa fa-shopping-cart"></i> <span class="badge"> <h:outputText value="#{orcamentoMB.countAnunciosEscolhidos}" id="labelCountAnuncios"/> </span> <b class="caret"></b>
+		                   	</a>
+		                    <ul class="dropdown-menu alert-dropdown">
+		                        <li>
+		                            <a href="#">Orçamentos</a>
+		                        </li>
+		                        <li class="divider"></li>
+		                        <li>
+		                        	<p:commandLink value="Gerar Orçamento" action="#{orcamentoMB.geraOrcamento}" update="grow1" style="text-decoration: none; color: black; margin-left: 15px;"/>
+		                        </li>
+		                    </ul>
+		                </li>
+		                
+		                
+		                <li class="dropdown">
+		                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> #{usuarioMB.userSession.nome} <b class="caret"></b></a>
+		                    <ul class="dropdown-menu">
+		                        <li>
+		                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+		                        </li>
+		                        <li>
+		                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+		                        </li>
+		                        <li>
+		                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+		                        </li>
+		                        <li class="divider"></li>
+		                        <li>
+		                        	<h:commandLink action="#{loginMB.logout}" style="text-decoration: none; color: black; margin-left: 15px;">
+		                        		<i class="fa fa-fw fa-power-off"></i> Log Out
+		                        	</h:commandLink>
+		                        </li>
+		                    </ul>
+		                </li>
+		            </ul>
+		            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+		            <div class="collapse navbar-collapse navbar-ex1-collapse">
+		                <ul class="nav navbar-nav side-nav">
+		                    <li class="active">
+		                        <p:commandLink action="home">
+		                        	<i class="fa fa-fw fa-home"></i> Home
+		                        </p:commandLink>
+		                    </li>
+		                    <li>
+		                        <a href="javascript:;" data-toggle="collapse" data-target="#menuCliente"><i class="fa fa-fw fa-bar-chart-o"></i> Cliente <i class="fa fa-fw fa-caret-down"></i></a>
+		                        <ul id="menuCliente" class="collapse">
+		                            <li>
+		                                <p:link outcome="cadastro-empresa" rendered="#{!autorizacaoMB.cadastrouEmpresa and autorizacaoMB.userEmpresaAutorizado}">
+				                        	<i class="fa fa-fw fa-dashboard"></i> Cadastrar Empresa
+				                        </p:link>
+		                            </li>
+		                            <li>
+		                            	<p:link outcome="detalhes-empresa" rendered="#{autorizacaoMB.userEmpresaAutorizado}">
+		                                	<i class="fa fa-align-left"></i> Detalhes da Empresa
+				                        </p:link>
+		                            </li>
+		                        </ul>
+		                    </li>
+		                    <li>
+		                        <a href="javascript:;" data-toggle="collapse" data-target="#menuAnuncio"><i class="fa fa-fw fa-bar-chart-o"></i> Anuncio <i class="fa fa-fw fa-caret-down"></i></a>
+		                        <ul id="menuAnuncio" class="collapse">
+		                            <li>
+		                                <p:link outcome="cadastro-anuncio" rendered="#{autorizacaoMB.userEmpresaAutorizado}">
+		                               		<i class="fa fa-fw fa-dashboard"></i> Cadastrar Anuncios
+		                               	</p:link>
+		                            </li>
+		                            <li>
+		                                <p:link outcome="detalhes-anuncio" rendered="#{autorizacaoMB.userEmpresaAutorizado}">
+		                               		<i class="fa fa-align-left"></i> Visualizar Anuncios
+		                                </p:link>
+		                            </li>
+		                        </ul>
+		                    </li>
+		                    
+		                    <li>
+		                        <a href="javascript:;" data-toggle="collapse" data-target="#menuOrcamento"><i class="fa fa-fw fa-bar-chart-o"></i> Orçamento <i class="fa fa-fw fa-caret-down"></i></a>
+		                        <ul id="menuOrcamento" class="collapse">
+		                            <li>
+		                                <p:link outcome="cria-orcamentos" rendered="#{autorizacaoMB.userConsumidorAutorizado}">
+		                               		<i class="fa fa-fw fa-dashboard"></i> Gerar Orçamentos
+		                               	</p:link>
+		                            </li>
+		                        </ul>
+		                    </li>                    
+		                    
+		                </ul>
+		            </div>
+		            <!-- /.navbar-collapse -->
+		        </nav>
+	   			</h:form>
+		
+		        <div id="page-wrapper">
+		
+		            <div class="container-fluid">
+						
+						<div id="conteudoCorpo">
+							<ui:insert name="corpo"/>
+						</div>
+		
+		            </div>
+		            <!-- /.container-fluid -->
+		
+		        </div>
+		        <!-- /#page-wrapper -->
+		
+		    </div>
+		    <!-- /#wrapper -->
+	       
    </h:body>
 </html>

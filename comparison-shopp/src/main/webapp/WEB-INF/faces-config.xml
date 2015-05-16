@@ -8,12 +8,15 @@
     
     <application>
     	<locale-config>
-    		<default-locale>pt</default-locale>
+    		<default-locale>pt_BR</default-locale>
     	</locale-config>
     	<resource-bundle>
-    		<base-name>bundle</base-name>
+    		<base-name>br.com.i18n.bundle</base-name>
     		<var>i18n</var>
     	</resource-bundle>
+    	<message-bundle>
+    		br.com.i18n.bundle
+    	</message-bundle>
     </application>
     
     <navigation-rule>
