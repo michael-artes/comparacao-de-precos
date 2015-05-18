@@ -3,7 +3,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
  
    <h:head>
       <title>
@@ -70,21 +71,22 @@
 		                    </ul>
 		                </li>
 		                
-			                
-		                <li class="dropdown">
-		                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		                    	<i class="fa fa-shopping-cart"></i> <span class="badge"> <h:outputText value="#{orcamentoMB.countAnunciosEscolhidos}" id="labelCountAnuncios"/> </span> <b class="caret"></b>
-		                   	</a>
-		                    <ul class="dropdown-menu alert-dropdown">
-		                        <li>
-		                            <a href="#">Orçamentos</a>
-		                        </li>
-		                        <li class="divider"></li>
-		                        <li>
-		                        	<p:commandLink value="Gerar Orçamento" action="#{orcamentoMB.geraOrcamento}" update="grow1" style="text-decoration: none; color: black; margin-left: 15px;"/>
-		                        </li>
-		                    </ul>
-		                </li>
+						<c:if test="#{autorizacaoMB.userConsumidorAutorizado}">
+			                <li class="dropdown">
+			                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			                    	<i class="fa fa-shopping-cart"></i> <span class="badge"> <h:outputText value="#{orcamentoMB.countAnunciosEscolhidos}" id="labelCountAnuncios"/> </span> <b class="caret"></b>
+			                   	</a>
+			                    <ul class="dropdown-menu alert-dropdown">
+			                        <li>
+			                            <a href="#">Orçamentos</a>
+			                        </li>
+			                        <li class="divider"></li>
+			                        <li>
+			                        	<p:commandLink value="Gerar Orçamento" action="#{orcamentoMB.geraOrcamento}" update="grow1" style="text-decoration: none; color: black; margin-left: 15px;"/>
+			                        </li>
+			                    </ul>
+			                </li>
+						</c:if>			                
 		                
 		                
 		                <li class="dropdown">
@@ -116,47 +118,53 @@
 		                        	<i class="fa fa-fw fa-home"></i> Home
 		                        </p:commandLink>
 		                    </li>
-		                    <li>
-		                        <a href="javascript:;" data-toggle="collapse" data-target="#menuCliente"><i class="fa fa-fw fa-bar-chart-o"></i> Cliente <i class="fa fa-fw fa-caret-down"></i></a>
-		                        <ul id="menuCliente" class="collapse">
-		                            <li>
-		                                <p:link outcome="cadastro-empresa" rendered="#{!autorizacaoMB.cadastrouEmpresa and autorizacaoMB.userEmpresaAutorizado}">
-				                        	<i class="fa fa-fw fa-dashboard"></i> Cadastrar Empresa
-				                        </p:link>
-		                            </li>
-		                            <li>
-		                            	<p:link outcome="detalhes-empresa" rendered="#{autorizacaoMB.userEmpresaAutorizado}">
-		                                	<i class="fa fa-align-left"></i> Detalhes da Empresa
-				                        </p:link>
-		                            </li>
-		                        </ul>
-		                    </li>
-		                    <li>
-		                        <a href="javascript:;" data-toggle="collapse" data-target="#menuAnuncio"><i class="fa fa-fw fa-bar-chart-o"></i> Anuncio <i class="fa fa-fw fa-caret-down"></i></a>
-		                        <ul id="menuAnuncio" class="collapse">
-		                            <li>
-		                                <p:link outcome="cadastro-anuncio" rendered="#{autorizacaoMB.userEmpresaAutorizado}">
-		                               		<i class="fa fa-fw fa-dashboard"></i> Cadastrar Anuncios
-		                               	</p:link>
-		                            </li>
-		                            <li>
-		                                <p:link outcome="detalhes-anuncio" rendered="#{autorizacaoMB.userEmpresaAutorizado}">
-		                               		<i class="fa fa-align-left"></i> Visualizar Anuncios
-		                                </p:link>
-		                            </li>
-		                        </ul>
-		                    </li>
+		                    <c:if test="#{autorizacaoMB.userEmpresaAutorizado}">
+			                    <li>
+			                        <a href="javascript:;" data-toggle="collapse" data-target="#menuCliente"><i class="fa fa-fw fa-bar-chart-o"></i> Cliente <i class="fa fa-fw fa-caret-down"></i></a>
+			                        <ul id="menuCliente" class="collapse">
+			                        	<c:if test="#{!autorizacaoMB.cadastrouEmpresa}">
+				                            <li>
+				                                <p:link outcome="cadastro-empresa">
+						                        	<i class="fa fa-fw fa-dashboard"></i> Cadastrar Empresa
+						                        </p:link>
+				                            </li>
+			                        	</c:if>
+			                            <li>
+			                            	<p:link outcome="detalhes-empresa">
+			                                	<i class="fa fa-align-left"></i> Detalhes da Empresa
+					                        </p:link>
+			                            </li>
+			                        </ul>
+			                    </li>
+			                    <li>
+			                        <a href="javascript:;" data-toggle="collapse" data-target="#menuAnuncio"><i class="fa fa-fw fa-bar-chart-o"></i> Anuncio <i class="fa fa-fw fa-caret-down"></i></a>
+			                        <ul id="menuAnuncio" class="collapse">
+			                            <li>
+			                                <p:link outcome="cadastro-anuncio">
+			                               		<i class="fa fa-fw fa-dashboard"></i> Cadastrar Anuncios
+			                               	</p:link>
+			                            </li>
+			                            <li>
+			                                <p:link outcome="detalhes-anuncio">
+			                               		<i class="fa fa-align-left"></i> Visualizar Anuncios
+			                                </p:link>
+			                            </li>
+			                        </ul>
+			                    </li>
+		                    </c:if>
 		                    
-		                    <li>
-		                        <a href="javascript:;" data-toggle="collapse" data-target="#menuOrcamento"><i class="fa fa-fw fa-bar-chart-o"></i> Orçamento <i class="fa fa-fw fa-caret-down"></i></a>
-		                        <ul id="menuOrcamento" class="collapse">
-		                            <li>
-		                                <p:link outcome="cria-orcamentos" rendered="#{autorizacaoMB.userConsumidorAutorizado}">
-		                               		<i class="fa fa-fw fa-dashboard"></i> Gerar Orçamentos
-		                               	</p:link>
-		                            </li>
-		                        </ul>
-		                    </li>                    
+		                    <c:if test="#{autorizacaoMB.userConsumidorAutorizado}">
+			                    <li>
+			                        <a href="javascript:;" data-toggle="collapse" data-target="#menuOrcamento"><i class="fa fa-fw fa-bar-chart-o"></i> Orçamento <i class="fa fa-fw fa-caret-down"></i></a>
+			                        <ul id="menuOrcamento" class="collapse">
+			                            <li>
+			                                <p:link outcome="cria-orcamentos" >
+			                               		<i class="fa fa-fw fa-dashboard"></i> Gerar Orçamentos
+			                               	</p:link>
+			                            </li>
+			                        </ul>
+			                    </li>                    
+		                    </c:if>
 		                    
 		                </ul>
 		            </div>
