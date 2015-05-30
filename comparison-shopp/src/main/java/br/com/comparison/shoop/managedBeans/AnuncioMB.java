@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +23,7 @@ import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import br.com.comparison.shoop.entity.Anuncio;
+import br.com.comparison.shoop.entity.Empresa;
 import br.com.comparison.shoop.service.AnuncioService;
 
 @Named
@@ -135,10 +137,16 @@ public class AnuncioMB implements Serializable{
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public List<Anuncio> getListAnuncios(){
 		
+		Empresa empresa = usuarioMB.getUserSession().getEmpresa();
+		
+		if (empresa == null)
+			return Collections.EMPTY_LIST;
+			
 		if (anuncios == null) {
-			anuncios = anuncioService.findAnunciosByEmpresa(usuarioMB.getUserSession().getEmpresa().getId());
+			anuncios = anuncioService.findAnunciosByEmpresa(empresa.getId());
 		}
 		
 		return anuncios;
