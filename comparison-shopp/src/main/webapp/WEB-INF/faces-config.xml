@@ -7,6 +7,10 @@
     version="2.1">
     
     <application>
+        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+    </application>    
+    
+    <application>
     	<locale-config>
     		<default-locale>pt_BR</default-locale>
     	</locale-config>
@@ -70,5 +74,9 @@
     	</navigation-case>
     	
     </navigation-rule>
+    
+    <lifecycle>
+    	<phase-listener>br.com.comparison.shoop.listener.AutenticacaoPhaseListener</phase-listener>
+    </lifecycle>
     
 </faces-config>

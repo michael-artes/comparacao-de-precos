@@ -24,89 +24,105 @@
    
 	<div class="container">
 	
-		<h:form styleClass="form-signin" id="formLogin" prependId="false">
-		
-			<p:focus />
-			<p:growl id="grow1" showDetail="true" />  
-			
-			<p:outputLabel styleClass="form-signin-heading fa" > <i class="fa fa-user"></i> #{i18n.logarSistema} </p:outputLabel>
-			
-			<label for="inputLogin" class="sr-only">#{i18n.loginInfo}</label>
-			<p:inputText styleClass="form-control fa" required="true" placeholder="#{i18n.loginInfo}" value="#{loginMB.login}" id="inputLogin"/>
-			
-			<label for="inputSenha" class="sr-only">#{i18n.senhaLoginInfo}</label>
-			<p:password styleClass="form-control fa" required="true" placeholder="#{i18n.senhaLoginInfo}" value="#{loginMB.senha}" id="inputSenha" converter="criptMD5Converter"/>
-			
-				<div class="checkbox">
-					<label>
-						<h:selectBooleanCheckbox value="#{loginMB.lembrarMe}"/>	<h:outputText value="#{i18n.lembrarME}" styleClass="fa"/>
-					</label>
-				</div>
-			
-			<p:link href="#" id="cadastroNovoUsuario" value="#{i18n.usuarioCadastrar}" styleClass="fa"/>
-			
-			<br/> <br/>
-			
-			<p:commandButton styleClass="btn btn-lg btn-primary btn-block fa" action="#{loginMB.logar}" value="#{i18n.entrarSistema}" update="grow1"/>
-			
-		</h:form>
+         <div class="row ">
+               
+	          <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+	                <div class="panel panel-default">
+	                    <div class="panel-heading">
+	                <strong>   Informe suar credenciais para acessar o sistema </strong>
+	                    </div>
+	                    <div class="panel-body">
+	                    
+	                        <form id="formLogin" action="j_spring_security_check" method="post">
+	                        
+	                               <br />
+	                             	<div class="form-group input-group">
+	                                    <span class="input-group-addon"><i class="fa fa-tag"  ></i></span>
+	                                    <input type="text" class="form-control" id="j_login" name="j_login" required="required" placeholder="Digite o seu login... " />
+	                                </div>
+	                                
+                                    <div class="form-group input-group">
+	                                    <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
+	                                    <input type="password" class="form-control" id="j_password" name="j_password" required="required" placeholder="Digite sua senha..." />
+	                                </div>
+	                                
+	                            	<div class="form-group">
+	                                    <label class="checkbox-inline">
+	                                        <input type="checkbox" name="lembrar-me"/> Lembre-me
+	                                    </label>
+	                                    <span class="pull-right">
+	                                           <a href="#" >Esqueceu sua senha ? </a> 
+	                                    </span>
+	                                </div>
+	                             
+	                             <button class="btn btn-primary" type="submit">Acessar</button>
+                            	<hr />
+                            	
+                            	Usuário Novo ? <p:link href="#" onclick="PF('newUserDialog').show()"> Clique Aqui </p:link>
+                            	
+                            </form>
+	                    </div>
+	                   
+	                </div>
+	            </div>
+                
+                
+        </div>		
 		
 		
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-4"></div>
 				<div class="col-lg-4">
-					<h:form id="formCadastroUser" style="display: none;" prependId="false">
-					
-						<p:panel id="panel" header="#{i18n.formCadastroUser}" style="margin-top: 10px;" styleClass="fa">
+						<h:form id="formCadastroUser" prependId="false">
+							<p:dialog header="Cadastro de Usuários" widgetVar="newUserDialog" modal="true">
+						
+								<p:outputPanel id="newUserDialog">
+								
 								<p:growl id="grow2" showDetail="true" sticky="true" />
 								
-								<p:separator/>
-						
-	                            <div class="form-group">
-	                                <label for="inputLoginUser">#{i18n.userLogin}</label>
-	                                <p:inputText styleClass="form-control" placeholder="#{i18n.userLogin}" value="#{usuarioMB.usuario.login}" required="true" id="inputLoginUser"/>
-	                            </div>
-	                            
-	                            <div class="form-group">
-	                                <label for="inputSenhaUser">#{i18n.userSenha}</label>
-	                                <p:password styleClass="form-control" placeholder="#{i18n.userSenha}" value="#{usuarioMB.usuario.senha}" feedback="true" redisplay="true" 
-	                                			required="true" id="inputSenhaUser" converter="criptMD5Converter" promptLabel="#{i18n.inserirSenha}" weakLabel="#{i18n.fraco}" goodLabel="#{i18n.good}" strongLabel="#{i18n.veryGood}">
-	                                	<!-- <f:validateRegex pattern="[a-zA-Z_0-9]{3,}"/> -->
-	                                </p:password>
-	                            </div>	
-	                            
-	                            <div class="form-group">
-	                                <label for="inputNomeUser">#{i18n.userNome}</label>
-	                                <p:inputText styleClass="form-control" placeholder="#{i18n.userNome}" value="#{usuarioMB.usuario.nome}" required="true" id="inputNomeUser"/>
-	                            </div>
-	                            
-	                            <div class="form-group">
-	                                <label for="inputEmailUser">#{i18n.userEmail}</label>
-	                                <p:inputText styleClass="form-control" placeholder="#{i18n.userEmail}" value="#{usuarioMB.usuario.email}" required="true" id="inputEmailUser">
-	                                	<f:validator validatorId="emailValidator"/>
-	                                </p:inputText>
-	                            </div>	
-	                            
-	                            <div class="form-group">
-	                                <label for="inputPerfilUser">#{i18n.userPerfil}</label>
-	                                <h:selectOneMenu value="#{usuarioMB.usuario.perfil}" id="inputPerfilUser" styleClass="form-control" converter="enumConverter" required="true">
-	                                	<f:selectItem itemLabel="---Selecione---" noSelectionOption="true"/>
-	                                	<f:selectItems value="#{usuarioMB.perfils}"/>
-	                                </h:selectOneMenu>
-	                            </div>
-	                            
-	                            <div class="form-group">
-	                            	<f:verbatim> <a href="#" class="fa" id="cancelarCadastro" style="color: #23527c" onclick="telaLogin();">#{i18n.cancelarCadastro}</a> </f:verbatim>
-	                            	<br/><br/>
-	                            	<h:commandButton value="#{i18n.userSalvar}" action="#{usuarioMB.salvarUser}" styleClass="btn btn-lg btn-primary btn-block">
-	                            		<f:ajax render="panel" execute="formCadastroUser"/>
-	                            	</h:commandButton>
-	                            </div>
-						</p:panel>
-					
-                            						
-					</h:form>
+			                        <div class="form-group">
+			                            <label for="inputLoginUser">#{i18n.userLogin}</label>
+			                            <p:inputText styleClass="form-control" placeholder="#{i18n.userLogin}" value="#{usuarioMB.usuario.login}" required="true" id="inputLoginUser"/>
+			                        </div>
+			                        
+			                        <div class="form-group">
+			                            <label for="inputSenhaUser">#{i18n.userSenha}</label>
+			                            <p:password styleClass="form-control" placeholder="#{i18n.userSenha}" value="#{usuarioMB.usuario.senha}" feedback="true" redisplay="true" 
+			                            			required="true" id="inputSenhaUser" converter="criptMD5Converter" promptLabel="#{i18n.inserirSenha}" weakLabel="#{i18n.fraco}" goodLabel="#{i18n.good}" strongLabel="#{i18n.veryGood}">
+			                            	<!-- <f:validateRegex pattern="[a-zA-Z_0-9]{3,}"/> -->
+			                            </p:password>
+			                        </div>	
+			                        
+			                        <div class="form-group">
+			                            <label for="inputNomeUser">#{i18n.userNome}</label>
+			                            <p:inputText styleClass="form-control" placeholder="#{i18n.userNome}" value="#{usuarioMB.usuario.nome}" required="true" id="inputNomeUser"/>
+			                        </div>
+			                        
+			                        <div class="form-group">
+			                            <label for="inputEmailUser">#{i18n.userEmail}</label>
+			                            <p:inputText styleClass="form-control" placeholder="#{i18n.userEmail}" value="#{usuarioMB.usuario.email}" required="true" id="inputEmailUser">
+			                            	<f:validator validatorId="emailValidator"/>
+			                            </p:inputText>
+			                        </div>	
+			                        
+			                        <div class="form-group">
+			                            <label for="inputPerfilUser">#{i18n.userPerfil}</label>
+			                            <h:selectOneMenu value="#{usuarioMB.usuario.perfil}" id="inputPerfilUser" styleClass="form-control" converter="enumConverter" required="true">
+			                            	<f:selectItem itemLabel="---Selecione---" noSelectionOption="true"/>
+			                            	<f:selectItems value="#{usuarioMB.perfils}"/>
+			                            </h:selectOneMenu>
+			                        </div>
+			                        
+			                        <div class="form-group">
+			                        	<h:commandButton value="#{i18n.userSalvar}" action="#{usuarioMB.salvarUser}" styleClass="btn btn-lg btn-primary btn-block">
+			                        		<f:ajax render="newUserDialog" execute="formCadastroUser"/>
+			                        	</h:commandButton>
+			                        </div>
+			                        
+								</p:outputPanel>
+							</p:dialog>
+						</h:form>
 				</div>
 				<div class="col-lg-4"></div>
 			</div>

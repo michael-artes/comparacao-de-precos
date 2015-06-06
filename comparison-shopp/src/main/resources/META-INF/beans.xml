@@ -5,5 +5,5 @@
 	<interceptors>
 		<class>br.com.comparison.shoop.interceptadores.TransacaoInterceptor</class>
 	</interceptors>
-
+	
 </beans>

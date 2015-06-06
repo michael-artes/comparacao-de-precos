@@ -11,12 +11,21 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+
 import br.com.comparison.shoop.entity.Usuario;
 import br.com.comparison.shoop.service.EmpresaService;
 import br.com.comparison.shoop.service.UsuarioService;
 
 @Named
 @RequestScoped
+@Component
 public class LoginMB implements Serializable{
 
 	
@@ -38,6 +47,11 @@ public class LoginMB implements Serializable{
 	
 	@Inject
 	private EmpresaService empresaService;
+	
+	@Autowired
+	@Qualifier("authenticationManager")
+	private AuthenticationManager authenticationManager;
+	
 
 	public boolean isLembrarMe() {
 		return lembrarMe;
@@ -60,10 +74,15 @@ public class LoginMB implements Serializable{
 	
 	
 	public void logar() throws IOException{
+		
 		FacesContext context = FacesContext.getCurrentInstance();
 		ResourceBundle i18n = context.getApplication().getResourceBundle(context, "i18n");
 		
 		Usuario usuario = usuarioService.existeUsuario(login, senha);
+		
+		Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login, senha));
+		
+		SecurityContextHolder.getContext().setAuthentication(authenticate);
 		
 		if (usuario != null) {
 			

@@ -1,6 +1,5 @@
 package br.com.comparison.shoop.enuns;
 
-import org.jboss.weld.exceptions.IllegalArgumentException;
 
 public enum EnumStatusOrcamento {
 	
