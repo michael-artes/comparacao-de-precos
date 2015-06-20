@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -26,6 +27,7 @@ import br.com.comparison.shoop.util.CDIServiceLocator;
 
 public class SpringSecurityFilter extends UsernamePasswordAuthenticationFilter {
 	
+	private String mensagem;
 	
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request,	HttpServletResponse response) throws AuthenticationException {
@@ -33,35 +35,46 @@ public class SpringSecurityFilter extends UsernamePasswordAuthenticationFilter {
 		String login = request.getParameter("j_login");
 		String senha = request.getParameter("j_password");
 		
-		UsuarioService usuarioService = CDIServiceLocator.getBean(UsuarioService.class);
-		
-		Usuario usuario = usuarioService.existeUsuario(login, CriptMD5.getInstance().cript(senha));
-		
-		if (usuario != null) {
-			
-			List<GrantedAuthority> createAuthorityList = AuthorityUtils.createAuthorityList(usuario.getPerfil().toString(), "USER");
-			
-			Authentication authentication = new UsernamePasswordAuthenticationToken(login, senha, createAuthorityList);
-			
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-			
-			preencherUserSession(login, usuario);
-			
-			return authentication;
-		}
+		try {
 
-		return null;
-		
+			UsuarioService usuarioService = CDIServiceLocator.getBean(UsuarioService.class);
+			Usuario usuario = usuarioService.existeUsuario(login, CriptMD5.getInstance().cript(senha));
+
+			if (usuario != null) {
+				
+				List<GrantedAuthority> createAuthorityList = AuthorityUtils.createAuthorityList(usuario.getPerfil().toString(), "USER");
+				
+				Authentication authentication = new UsernamePasswordAuthenticationToken(login, senha, createAuthorityList);
+				
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+				
+				preencherUserSession(login, usuario);
+				
+				mensagem = "Seja Bem Vindo " + usuario.getLogin();
+				
+				return authentication;
+				
+			} else {
+				mensagem = "Dados incorretos, favor verifique o seu login e senha";
+				throw new BadCredentialsException(mensagem);
+			}
+			
+		} catch (Exception e) {
+			mensagem = "Não Foi possível logar no sistema";
+			throw new BadCredentialsException(mensagem, e);
+		}
 	}
 	
 	
 	@Override
 	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed)	throws IOException, ServletException {
+		request.getSession().setAttribute("msg", mensagem);
 		response.sendRedirect(request.getContextPath() + "/login.xhtml");
 	}
 	
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request,	HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+		request.getSession().setAttribute("msg", mensagem);
 		response.sendRedirect(request.getContextPath() + "/pags/home/home.xhtml");
 	}
 	

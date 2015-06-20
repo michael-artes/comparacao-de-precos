@@ -33,7 +33,7 @@ public class PDFBuildCorpo extends PDFBuild{
 	@Override
 	public void buildCorpo(Orcamento orcamento, List<Empresa> list) throws DocumentException {
 		
-		preencherMapEmpresaByItem(orcamento, map, list);
+		preencherMapEmpresaByItem(orcamento, list);
 		
 		//Pdf tera 4 colunas
 		PdfPTable table = new PdfPTable( new float[]{5, 6, 3, 5} );
@@ -43,39 +43,50 @@ public class PDFBuildCorpo extends PDFBuild{
 		Font f = new Font(Font.BOLD);
 		f.setColor(Color.WHITE);
 		
-		PdfPCell cell = new PdfPCell(new Phrase("Orçamento #" + orcamento.getId(), f));
+		PdfPCell cell = new PdfPCell(new Phrase("ORÇAMENTO #" + orcamento.getId(), f));
 		cell.setBackgroundColor(Color.BLACK);
 		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		cell.setBorder(Rectangle.NO_BORDER);
-		cell.setColspan(7); 
-		
+		cell.setPaddingBottom(10f);
+		cell.setColspan(7);
 		table.addCell(cell);
 		
+		cell = new PdfPCell();
+		cell.setBorder(Rectangle.NO_BORDER);
+		cell.setBackgroundColor(Color.WHITE);
+		cell.setColspan(7); 
+		table.addCell(cell);
 		
-		PdfPCell cell2 = new PdfPCell(new Phrase("Nome", f));
-		cell2.setBorder(Rectangle.NO_BORDER);
-		cell2.setBackgroundColor(Color.DARK_GRAY);
-		cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
-		table.addCell(cell2);
+		cell = new PdfPCell(new Phrase("Nome", f));
+		cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+		cell.setBackgroundColor(Color.DARK_GRAY);
+		cell.setBorder(Rectangle.NO_BORDER);
+		table.addCell(cell);
 		
-		PdfPCell cell3 = new PdfPCell(new Phrase("Descrição", f));
-		cell3.setBorder(Rectangle.NO_BORDER);
-		cell3.setBackgroundColor(Color.DARK_GRAY);
-		cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
-		table.addCell(cell3);
+		cell = new PdfPCell(new Phrase("Descrição", f));
+		cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+		cell.setBackgroundColor(Color.DARK_GRAY);
+		cell.setBorder(Rectangle.NO_BORDER);
+		table.addCell(cell);
 		
-		PdfPCell cell4 = new PdfPCell(new Phrase("Valor", f));
-		cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
-		cell4.setBorder(Rectangle.NO_BORDER);
-		cell4.setBackgroundColor(Color.DARK_GRAY);
-		cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
-		table.addCell(cell4);
+		cell = new PdfPCell(new Phrase("Valor", f));
+		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		cell.setBorder(Rectangle.NO_BORDER);
+		cell.setBackgroundColor(Color.DARK_GRAY);
+		cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+		table.addCell(cell);
 		
-		PdfPCell cell5 = new PdfPCell(new Phrase("Empresa", f));
-		cell5.setBorder(Rectangle.NO_BORDER);	
-		cell5.setBackgroundColor(Color.DARK_GRAY);
-		cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
-		table.addCell(cell5);
+		cell = new PdfPCell(new Phrase("Empresa", f));
+		cell.setBorder(Rectangle.NO_BORDER);	
+		cell.setBackgroundColor(Color.DARK_GRAY);
+		cell.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+		table.addCell(cell);
+		
+		cell = new PdfPCell();
+		cell.setBorder(Rectangle.NO_BORDER);
+		cell.setBackgroundColor(Color.WHITE);
+		cell.setColspan(7); 
+		table.addCell(cell);
 		
 		BigDecimal decimal = null;
 		Locale locale = new Locale("pt", "BR");
@@ -87,6 +98,7 @@ public class PDFBuildCorpo extends PDFBuild{
 			ordenarByValor(itens);
 			
 			table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+			
 			for (ItemOrcamento item : itens) {
 				
 				if (!pintou) {
@@ -110,6 +122,7 @@ public class PDFBuildCorpo extends PDFBuild{
 			int a = 2;
 			
 			while(a != 0){
+				
 				PdfPCell cellEmpty = new PdfPCell();
 				cellEmpty.setBorder(Rectangle.NO_BORDER);
 				cellEmpty.setBackgroundColor(Color.WHITE);
@@ -121,12 +134,36 @@ public class PDFBuildCorpo extends PDFBuild{
 			
 		}
 		
+		Double total = 0.0;
+		
+		for (ItemOrcamento item : orcamento.getItemOrcamentos()) {
+			total += item.getValor().doubleValue();
+		}
+		
+		decimal = new BigDecimal(total);
+		decimal.setScale(2, RoundingMode.HALF_UP);
+		
+		cell = new PdfPCell();
+		cell.setBorder(Rectangle.NO_BORDER);
+		cell.setBackgroundColor(Color.WHITE);
+		cell.setColspan(7); 
+		table.addCell(cell);
+		
+		f.setStyle(Font.BOLD);
+		
+		cell = new PdfPCell(new Phrase("VALOR TOTAL   -    R$: " + (format.format(decimal)), f));
+		cell.setBackgroundColor(Color.RED);
+		cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+		cell.setBorder(Rectangle.NO_BORDER);
+		cell.setColspan(7);
+		cell.setPaddingBottom(5f);
+		table.addCell(cell);
 		
 		document.add(table);
 	}
 
 	
-	private void preencherMapEmpresaByItem(Orcamento orc, Map<Empresa, List<ItemOrcamento>> m, List<Empresa> list) {
+	private void preencherMapEmpresaByItem(Orcamento orc, List<Empresa> list) {
 		
 		ordenarByName(list);
 		
@@ -138,10 +175,9 @@ public class PDFBuildCorpo extends PDFBuild{
 				if (item.getEmpresa().getId() == e.getId()) {
 					itens.add(item);
 				}
-				
 			}
 			
-			m.put(e, itens);
+			map.put(e, itens);
 		}
 		
 		

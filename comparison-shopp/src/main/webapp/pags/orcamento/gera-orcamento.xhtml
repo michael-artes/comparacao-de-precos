@@ -39,49 +39,58 @@
       
       		
       		<h:form id="form">
-			    <p:dataGrid var="anuncio" value="#{orcamentoMB.anunciosByPesquisa}" columns="3" layout="grid" rows="12" paginator="true" id="anunciosList"
-			        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			        rowsPerPageTemplate="6,12,18">
-			 
-			        <f:facet name="header">
-			            Listagem Anuncios
-			        </f:facet>
-			        
-			 
-			        <p:panel header="##{anuncio.id} - #{anuncio.empresa.nomeFantasia}" style="text-align: center;">
-			            <h:panelGrid columns="1" style="width:100%" id="selectedAnuncio">
-			            
-							<p:graphicImage value="#{imagemMB.anuncioImagem}" width="100%" height="140" styleClass="img-retangle" rendered="#{not empty anuncio.imagem}">
-				        		<f:param name="idAnuncio" value="#{anuncio.id}"/>
-				        	</p:graphicImage>
-				        	
-				        	<p:graphicImage width="100%" height="140" name="imagens/imagem-nao-disponivel.jpg" rendered="#{empty anuncio.imagem}" />
-				        	
-				        	<p:spacer />
-				        	
-			        	      <div class="alert alert-info">
-						        <strong> #{anuncio.nome} </strong>
-						      </div>
-				        	
-			                <p:commandButton update=":form:anuncioDialog" oncomplete="PF('anuncioDialog').show()" title="Detalhes Anuncio" value="Visualizar Anuncio" styleClass="btn btn-sm" >
-			                    <f:setPropertyActionListener value="#{anuncio}" target="#{orcamentoMB.anuncioSelected}" />
-			                </p:commandButton>
+				<p:dataTable id="anunciosList" var="anuncio" reflow="true"
+					value="#{orcamentoMB.anunciosByPesquisa}"
+					emptyMessage="Nenhum anuncio localizado na busca"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rows="10" paginator="true" rowsPerPageTemplate="5,10,15">
 
-							<p:spacer />
-				        	
-				        	<h:commandButton styleClass="btn btn-sm btn-primary" value="Adicionar" actionListener="#{orcamentoMB.adicionarAnuncio}">
-				        		<f:ajax render=":formMenu:labelCountAnuncios" execute="@form"/>
-				        		<f:param name="idAnuncio" value="#{anuncio.id}"/>
-				        	</h:commandButton> 	
-				        		
-			                
-			            </h:panelGrid>
-			        </p:panel>
-			 
-			    </p:dataGrid>
-			    
-			 
-			    <p:dialog header="Detalhes Anuncio" widgetVar="anuncioDialog" modal="true" height="350px" resizable="false">
+					<p:column headerText="Imagem">
+						<p:graphicImage height="100" width="160" value="#{imagemMB.anuncioImagem}" rendered="#{not empty anuncio.imagem}">
+							<f:param name="idAnuncio" value="#{anuncio.id}" />
+						</p:graphicImage>
+						<p:graphicImage height="100" width="160" name="imagens/imagem-nao-disponivel.jpg" rendered="#{empty anuncio.imagem}" />
+					</p:column>
+
+					<p:column filterBy="#{anuncio.id}" headerText="Id">
+						<h:outputText value="#{anuncio.id}" />
+					</p:column>
+					
+					<p:column headerText="Nome" filterBy="#{anuncio.nome}" filterMatchMode="contains">
+						<h:outputText value="#{anuncio.nome}" />
+					</p:column>
+					
+					<p:column headerText="Valor" filterBy="#{anuncio.valor}">
+						<h:outputText value="#{anuncio.valor}">
+							<f:convertNumber locale="pt_BR" maxFractionDigits="2"
+								minFractionDigits="2" />
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Descrição">
+						<h:outputText value="#{anuncio.descricao}" />
+					</p:column>
+
+					<p:column style="text-align: center;" headerText="Ação">
+			        	<h:commandButton styleClass="btn btn-sm btn-primary" value="Adicionar" actionListener="#{orcamentoMB.adicionarAnuncio}" style="margin-bottom: 5px; margin-left: 5px;">
+			        		<f:ajax render=":formMenu:labelCountAnuncios" execute="@form"/>
+			        		<f:param name="idAnuncio" value="#{anuncio.id}"/>
+			        	</h:commandButton>
+			        	
+			        	<h:commandButton styleClass="btn btn-sm btn-danger" value="Remover" actionListener="#{orcamentoMB.removerAnuncio}" style="margin-bottom: 5px; margin-left: 5px;">
+			        		<f:ajax render=":formMenu:labelCountAnuncios" execute="@form"/>
+			        		<f:param name="idAnuncio" value="#{anuncio.id}"/>
+			        	</h:commandButton>			        	
+			        	
+		                <p:commandButton update=":form:anuncioDialog" oncomplete="PF('anuncioDialog').show()" title="Detalhes Anuncio" value="Visualizar Anuncio" styleClass="btn btn-sm" >
+		                    <f:setPropertyActionListener value="#{anuncio}" target="#{orcamentoMB.anuncioSelected}" />
+		                </p:commandButton>			        	
+					</p:column>
+
+				</p:dataTable>
+
+
+				<p:dialog header="Detalhes Anuncio" widgetVar="anuncioDialog" modal="true" height="350px" resizable="false">
 			        <p:outputPanel id="anuncioDialog" style="text-align:center;">
 			            <p:panelGrid  columns="2" rendered="#{not empty orcamentoMB.anuncioSelected}">
 				        			            

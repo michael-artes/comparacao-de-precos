@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.comparison.shoop.dao.AnuncioDAO;
@@ -45,7 +46,7 @@ public class AnuncioDAOImpl extends GenericDAOImpl<Anuncio> implements AnuncioDA
 		
 		Criteria crit = session.createCriteria(Anuncio.class, "a");
 		
-		crit.add(Restrictions.like("a.nome", "%"+nomePesquisa+"%"));
+		crit.add(Restrictions.like("a.nome", nomePesquisa, MatchMode.ANYWHERE).ignoreCase());
 		
 		crit.createAlias("a.empresa", "e");
 		

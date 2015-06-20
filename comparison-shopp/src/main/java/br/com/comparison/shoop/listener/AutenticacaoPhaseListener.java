@@ -1,8 +1,12 @@
 package br.com.comparison.shoop.listener;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.servlet.http.HttpSession;
+
+import br.com.comparison.shoop.util.FacesUtil;
 
 public class AutenticacaoPhaseListener implements PhaseListener{
 
@@ -20,8 +24,21 @@ public class AutenticacaoPhaseListener implements PhaseListener{
 	@Override
 	public void beforePhase(PhaseEvent event) {
 		
-		System.out.println("Pegando o id da View " + event.getPhaseId().toString());
+		FacesContext context = FacesContext.getCurrentInstance();
 		
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+		
+		if (session != null) {
+			
+			String mensagem = (String) session.getAttribute("msg");
+			
+			if (mensagem  != null) {
+				
+				FacesUtil.addInfoMessage(mensagem);
+				
+				session.setAttribute("msg", null);
+			}
+		}
 	}
 
 	@Override
