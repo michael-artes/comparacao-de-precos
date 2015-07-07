@@ -53,6 +53,10 @@ public class AutorizacaoMB implements Serializable{
 	}
 	
 	public boolean isUserAdminAutorizado(){
+		
+		if (usuarioMB.getUserSession().getEnumPerfil() == EnumPerfil.ADMINISTRADOR)
+			return true;
+		
 		return false;
 	}
 	
@@ -69,10 +73,6 @@ public class AutorizacaoMB implements Serializable{
 		if (usuarioMB.getUserSession().getEnumPerfil() != EnumPerfil.EMPRESA) {
 			return "home";
 		}
-		
-		/*if (usuarioMB.getUserSession().getEmpresa() != null) {
-			return "home";
-		}*/
 		
 		return null;
 	}

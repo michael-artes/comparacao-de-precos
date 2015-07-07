@@ -14,7 +14,7 @@
         
         <security:intercept-url pattern="/pags/home/**" access="isAuthenticated()"/>
         <security:intercept-url pattern="/pags/anuncio/**" access="hasAnyRole('EMPRESA')"/>
-        <security:intercept-url pattern="/pags/empresa/**" access="hasAnyRole('EMPRESA')"/>
+        <security:intercept-url pattern="/pags/empresa/**" access="hasAnyRole('EMPRESA','ADMINISTRADOR')"/>
         <security:intercept-url pattern="/pags/orcamento/**" access="hasAnyRole('CONSUMIDOR')"/>
         
         <!-- <security:intercept-url pattern="/**" access="denyAll" /> -->

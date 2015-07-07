@@ -2,6 +2,8 @@ package br.com.comparison.shoop.managedBeans;
 
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -42,5 +44,15 @@ public class ImagemMB implements Serializable{
 		return new DefaultStreamedContent( new ByteArrayInputStream( anuncioService.loadById(id).getImagem() ) );
 		
 	}
+	
+	public List<String> getImages() {
+		List<String> list = new ArrayList<String>(0);
+		
+		list.add("anuncio-1.jpg");
+		list.add("anuncio-2.jpg");
+		list.add("anuncio-3.jpg");
+		
+        return list;
+    }
 	
 }

@@ -1,6 +1,7 @@
 package br.com.comparison.shoop.managedBeans;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -9,7 +10,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -46,8 +46,11 @@ public class OrcamentoMB implements Serializable {
 	@Inject private OrcamentoService orcamentoService;
 	@Inject private UsuarioMB usuarioMB;
 	
+	private BigDecimal menorQue;
+	private BigDecimal maiorQue;
 	private String nomePesquisa; 
 	private Anuncio anuncioSelected;
+	private ArrayList<Anuncio> arrayList = new ArrayList<Anuncio>(0);
 	
 	private Orcamento orcamento;
 	private List<ItemOrcamento> itemOrcamentos = new ArrayList<ItemOrcamento>(0);
@@ -95,8 +98,8 @@ public class OrcamentoMB implements Serializable {
 		this.nomePesquisa = nomePesquisa;
 	}
 
-	public Set<Anuncio> getAnunciosByPesquisa() {
-		return anunciosByPesquisa;
+	public List<Anuncio> getAnunciosByPesquisa() {
+		return arrayList;
 	}
 	
 	public Anuncio getAnuncioSelected() {
@@ -106,19 +109,29 @@ public class OrcamentoMB implements Serializable {
 	public void setAnuncioSelected(Anuncio anuncioSelected) {
 		this.anuncioSelected = anuncioSelected;
 	}
-	
-	
 
+	public BigDecimal getMenorQue() {
+		return menorQue;
+	}
+	public void setMenorQue(BigDecimal menorQue) {
+		this.menorQue = menorQue;
+	}
+	public BigDecimal getMaiorQue() {
+		return maiorQue;
+	}
+	public void setMaiorQue(BigDecimal maiorQue) {
+		this.maiorQue = maiorQue;
+	}
 	/**
 	 * *****************************************************************************   GATO
 	 * */
-	@PostConstruct
+	/*@PostConstruct
 	public void init(){
 		orcamento = orcamentoService.loadById(31);
 		itemOrcamentos.addAll(orcamento.getItemOrcamentos());
 		
 		LOGGER.debug(orcamento.toString());
-	}
+	}*/
 	/**
 	 * *****************************************************************************   FIM GATO
 	 * */
@@ -147,10 +160,16 @@ public class OrcamentoMB implements Serializable {
 	
 	public void pesquisarAnuncios(ActionEvent event){
 		anunciosByPesquisa = new HashSet<Anuncio>(0);
-		List<Anuncio> listAnuncios = anuncioService.findAnunciosByPesquisa(this.nomePesquisa);
+		arrayList = new ArrayList<Anuncio>(0);
+		List<Anuncio> listAnuncios = anuncioService.findAnunciosByPesquisa(this.nomePesquisa, maiorQue, menorQue);
 		anunciosByPesquisa.addAll(listAnuncios);
 		
-		this.nomePesquisa = ""; //Limpa o campo
+		arrayList.addAll(anunciosByPesquisa);
+		
+		//Limpa o campo
+		this.nomePesquisa = "";
+		this.maiorQue = null;
+		this.menorQue = null;
 	}
 	
 	

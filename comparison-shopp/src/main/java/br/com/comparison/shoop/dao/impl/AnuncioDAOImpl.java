@@ -1,5 +1,6 @@
 package br.com.comparison.shoop.dao.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -40,7 +41,7 @@ public class AnuncioDAOImpl extends GenericDAOImpl<Anuncio> implements AnuncioDA
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Anuncio> findAnunciosByPesquisa(String nomePesquisa) {
+	public List<Anuncio> findAnunciosByPesquisa(String nomePesquisa, BigDecimal maiorQue, BigDecimal menorQue) {
 		
 		Session session = (Session) entityManager.getDelegate();
 		
@@ -51,6 +52,22 @@ public class AnuncioDAOImpl extends GenericDAOImpl<Anuncio> implements AnuncioDA
 		crit.createAlias("a.empresa", "e");
 		
 		crit.add(Restrictions.eq("e.ativo", true));
+		
+		if (maiorQue.doubleValue() > 0 && menorQue.doubleValue() > 0) {
+			
+			crit.add(Restrictions.between("a.valor", maiorQue, menorQue));
+			
+		} else {
+			
+			if (maiorQue.doubleValue() > 0) {
+				crit.add(Restrictions.ge("a.valor", maiorQue));
+			}
+			
+			if (menorQue.doubleValue() > 0) {
+				crit.add(Restrictions.le("a.valor", menorQue));
+			}
+			
+		}
 		
 		return crit.list();
 	}

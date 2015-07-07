@@ -2,6 +2,7 @@ package br.com.comparison.shoop.managedBeans;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
@@ -35,7 +36,7 @@ public class EmpresaMB implements Serializable {
 	@Inject
 	private UsuarioMB usuarioMB;
 	
-	
+	private List<Empresa> empresas;
 	private Empresa empresa;
 
 	public Empresa getEmpresa() {
@@ -45,7 +46,17 @@ public class EmpresaMB implements Serializable {
 		this.empresa = empresa;
 	}
 	
-	
+	public List<Empresa> getEmpresas() {
+		
+		if (empresas == null) {
+			empresas = empresaService.list();
+		}
+		
+		return empresas;
+	}
+	public void setEmpresas(List<Empresa> empresas) {
+		this.empresas = empresas;
+	}
 	
 	
 	@PostConstruct
@@ -88,7 +99,15 @@ public class EmpresaMB implements Serializable {
 			return null;
 		}
 		
-		return "detalhes-empresa";
+		String string = context.getExternalContext().getRequestParameterMap().get("redirecionarOutcome");
+		
+		if ("empresas-cadastradas".equals(string)){
+			empresa = new Empresa();
+			empresas = empresaService.list();
+			return null;
+		}
+		
+		return null;
 	}
 	
 	

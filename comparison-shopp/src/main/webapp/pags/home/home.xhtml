@@ -11,10 +11,11 @@
 	
 	<ui:define name="corpo">
 	
-      <div class="jumbotron" style="margin-top: 15px;">
-        <h1>Theme example</h1>
-        <p>This is a template showcasing the optional theme stylesheet included in Bootstrap. Use it as a starting point to create something more unique by building on or modifying it.</p>
-      </div>
+		<div class="container">
+			<p:galleria value="#{imagemMB.images}" var="image" panelWidth="1200" panelHeight="400" showCaption="true">
+			    <p:graphicImage name="imagens/#{image}" alt="Image Description for #{image}" title="#{image}"/>
+			</p:galleria>	
+		</div>
 		
 	</ui:define>		
 

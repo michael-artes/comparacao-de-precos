@@ -36,7 +36,7 @@ public class EnumConverter implements Converter{
 			
 		}
 		
-		return null;
+		return "";
 	}
 
 }

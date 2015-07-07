@@ -7,12 +7,7 @@
 		xmlns:p="http://primefaces.org/ui"
 		xmlns:stella="http://stella.caelum.com.br/faces2">
 		
-   	<f:metadata>
-		<f:viewAction action="#{autorizacaoMB.verificaAutorizacaoEmpresa}"/>
-		<f:viewAction action="#{empresaMB.processaParametros}"/>
-	</f:metadata>		
-		
-	<ui:define name="titulo">Detalhes Empresa</ui:define>
+	<ui:define name="titulo">Empresas Cadastradas</ui:define>
 	
 	<ui:define name="corpo">
 	
@@ -21,48 +16,48 @@
 				<div class="col-lg-12">
 				
 				
-					<h3> <i class="fa fa-building fa-1x"></i> Detalhes Empresa </h3>
+					<h3> <i class="fa fa-building fa-1x"></i> Empresas cadastradas </h3>
 
-					<h:form prependId="false" id="detalhesEmpresa">
-					
-					<p:messages showDetail="true" closable="true"/>
-					
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>E-mail</th>
-                                        <th>CNPJ</th>
-                                        <th>Ativo</th>
-                                        <th>Descrições</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td> <h:outputText value="#{empresaMB.empresa.nomeFantasia}"/> </td>
-                                        <td> <h:outputText value="#{empresaMB.empresa.email}"/> </td>
-                                        <td> <h:outputText value="#{empresaMB.empresa.cnpj}"/> </td>
-                                        <td> 
-                                        	<h:outputText rendered="#{empresaMB.empresa.ativo}" value="Sim"/>
-                                        	<h:outputText rendered="#{!empresaMB.empresa.ativo}" value="Não"/>
-                                        </td>
-                                        <td> 
-                                        	<h:outputLink id="descricaoEmpresa" value="#">
-                                        		<h:outputText value="Descrição"/>
-                                        	</h:outputLink>
-                                        	<p:tooltip for="descricaoEmpresa" value="#{empresaMB.empresa.descricao}"/> 
-                                       	</td>
-                                        <td> 
-                                        	<p:commandButton styleClass="btn btn-xs btn-primary" value="Atualizar" onclick="PF('modalEmpresa').show()" title="Atualizar"/>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>											
-										
-					     
+					<h:form prependId="false" id="listEmpresasCadastradas">
+						<p:messages showDetail="true" closable="true"/>
+						
+					    <p:dataTable id="empresasCad" var="empresa" value="#{empresaMB.empresas}" paginator="true" rows="10" 
+					    			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+					    			rowsPerPageTemplate="5,10,15" paginatorPosition="bottom" styleClass="table table-hover">
+	
+					   		<p:column headerText="Id" sortBy="#{empresa.id}" width="50">
+					   			<h:outputText value="#{empresa.id}"/>
+					   		</p:column>
+					   		
+					   		<p:column headerText="Nome" filterBy="#{empresa.nomeFantasia}" filterMatchMode="contains">
+					   			<h:outputText value="#{empresa.nomeFantasia}"/>
+					   		</p:column>     
+					   		
+					   		<p:column headerText="E-mail" width="250">
+					   			<h:outputText value="#{empresa.email}"/>
+					   		</p:column>     
+					   		
+					   		<p:column headerText="CNPJ">
+					   			<h:outputText value="#{empresa.cnpj}"/>
+					   		</p:column>     
+					   		
+					   		<p:column headerText="Ativo" width="70">
+					   			<h:outputText rendered="#{empresa.ativo}" value="Sim"/>
+                                <h:outputText rendered="#{!empresa.ativo}" value="Não"/>
+					   		</p:column>     
+					   		
+					   		<p:column headerText="Descrições">
+					   			<h:outputText value="#{empresa.descricao}"/>
+					   		</p:column> 
+					   		
+					   		<p:column width="60" style="text-align: center;">
+					             <p:commandButton update=":atualizaEmpresa:panelAtualizaEmpresa" oncomplete="PF('modalEmpresa').show()" icon="ui-icon-pencil" title="Atualizar">
+					                <f:setPropertyActionListener value="#{empresa}" target="#{empresaMB.empresa}" />
+					            </p:commandButton>
+					   		</p:column>         
+					        
+					    </p:dataTable>						
+											
 					</h:form>
 					
 				</div>
@@ -108,7 +103,8 @@
 							
 							<div class="form-group">
 								<h:commandButton value="Atualizar" styleClass="btn btn-lg btn-primary btn-block" action="#{empresaMB.atualizarEmpresa}" onclick="PF('modalEmpresa').hide()">
-									<f:ajax render=":detalhesEmpresa panelAtualizaEmpresa" execute="@form"/>
+									<f:ajax render=":listEmpresasCadastradas panelAtualizaEmpresa" execute="@form"/>
+									<f:param name="redirecionarOutcome" value="empresas-cadastradas"/>
 								</h:commandButton>
 							</div>
 			     	</p:panel>

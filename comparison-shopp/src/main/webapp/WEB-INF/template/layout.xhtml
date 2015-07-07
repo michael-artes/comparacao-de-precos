@@ -115,39 +115,51 @@
 		                        	<i class="fa fa-fw fa-home"></i> Home
 		                        </p:commandLink>
 		                    </li>
-		                    <c:if test="#{autorizacaoMB.userEmpresaAutorizado}">
+		                    <c:if test="#{autorizacaoMB.userEmpresaAutorizado or autorizacaoMB.userAdminAutorizado}">
 			                    <li>
 			                        <a href="javascript:;" data-toggle="collapse" data-target="#menuCliente"><i class="fa fa-fw fa-bar-chart-o"></i> Cliente <i class="fa fa-fw fa-caret-down"></i></a>
 			                        <ul id="menuCliente" class="collapse">
-			                        	<c:if test="#{!autorizacaoMB.cadastrouEmpresa}">
+			                        	<c:if test="#{!autorizacaoMB.cadastrouEmpresa and autorizacaoMB.userEmpresaAutorizado}">
 				                            <li>
 				                                <p:link outcome="cadastro-empresa">
 						                        	<i class="fa fa-fw fa-dashboard"></i> Cadastrar Empresa
 						                        </p:link>
 				                            </li>
 			                        	</c:if>
-			                            <li>
-			                            	<p:link outcome="detalhes-empresa">
-			                                	<i class="fa fa-align-left"></i> Detalhes da Empresa
-					                        </p:link>
-			                            </li>
+			                        	<c:if test="#{autorizacaoMB.userEmpresaAutorizado}">
+				                            <li>
+				                            	<p:link outcome="detalhes-empresa">
+				                                	<i class="fa fa-align-left"></i> Detalhes da Empresa
+						                        </p:link>
+				                            </li>
+			                        	</c:if>
+			                            
+			                            <c:if test="#{autorizacaoMB.userAdminAutorizado}">
+				                            <li>
+				                            	<p:link outcome="empresas-cadastradas">
+				                                	<i class="fa fa-sitemap"></i> Empresas Cadastradas
+						                        </p:link>
+				                            </li>
+			                            </c:if>
 			                        </ul>
 			                    </li>
-			                    <li>
-			                        <a href="javascript:;" data-toggle="collapse" data-target="#menuAnuncio"><i class="fa fa-fw fa-bar-chart-o"></i> Anuncio <i class="fa fa-fw fa-caret-down"></i></a>
-			                        <ul id="menuAnuncio" class="collapse">
-			                            <li>
-			                                <p:link outcome="cadastro-anuncio">
-			                               		<i class="fa fa-fw fa-dashboard"></i> Cadastrar Anuncios
-			                               	</p:link>
-			                            </li>
-			                            <li>
-			                                <p:link outcome="detalhes-anuncio">
-			                               		<i class="fa fa-align-left"></i> Visualizar Anuncios
-			                                </p:link>
-			                            </li>
-			                        </ul>
-			                    </li>
+			                    <c:if test="#{autorizacaoMB.userEmpresaAutorizado}">
+				                    <li>
+				                        <a href="javascript:;" data-toggle="collapse" data-target="#menuAnuncio"><i class="fa fa-fw fa-bar-chart-o"></i> Anuncio <i class="fa fa-fw fa-caret-down"></i></a>
+				                        <ul id="menuAnuncio" class="collapse">
+				                            <li>
+				                                <p:link outcome="cadastro-anuncio">
+				                               		<i class="fa fa-fw fa-dashboard"></i> Cadastrar Anuncios
+				                               	</p:link>
+				                            </li>
+				                            <li>
+				                                <p:link outcome="detalhes-anuncio">
+				                               		<i class="fa fa-align-left"></i> Visualizar Anuncios
+				                                </p:link>
+				                            </li>
+				                        </ul>
+				                    </li>
+			                    </c:if>
 		                    </c:if>
 		                    
 		                    <c:if test="#{autorizacaoMB.userConsumidorAutorizado}">

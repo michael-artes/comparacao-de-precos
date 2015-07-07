@@ -70,8 +70,8 @@ public class AnuncioServiceImpl implements AnuncioService, Serializable {
 	}
 
 	@Override
-	public List<Anuncio> findAnunciosByPesquisa(String nomePesquisa) {
-		return anuncioDAO.findAnunciosByPesquisa(nomePesquisa);
+	public List<Anuncio> findAnunciosByPesquisa(String nomePesquisa, BigDecimal maiorQue, BigDecimal menorQue) {
+		return anuncioDAO.findAnunciosByPesquisa(nomePesquisa, maiorQue, menorQue);
 	}
 
 	@SuppressWarnings("resource")
