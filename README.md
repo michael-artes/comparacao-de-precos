@@ -8,3 +8,6 @@ Sistema de comparação de preços
 * JPA e Hibernate
 * CDI
 * Spring Security
+
+### Demonstraço Aplicação! ###
+[Comparação de Preços](https://comparison-shopp.herokuapp.com/)
