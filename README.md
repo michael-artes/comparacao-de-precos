@@ -9,5 +9,5 @@ Sistema de comparação de preços
 * CDI
 * Spring Security
 
-### Demonstraço Aplicação! ###
+### Demonstração Aplicação! ###
 [Comparação de Preços](https://comparison-shopp.herokuapp.com/)
