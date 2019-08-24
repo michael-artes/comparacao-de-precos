@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'cd comparison-shopp && mvn --version'
+                sh 'ls -la'
             }
         }
     }
