@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'mvn --version && cd comparacao-de-precos && mvn clean package'
+                sh 'mvn --version && cd comparison-shopp && mvn clean package'
             }
         }
     }
