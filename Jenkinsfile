@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'ls -la'
+                sh 'mvn --version && cd comparacao-de-precos && mvn clean package'
             }
         }
     }
